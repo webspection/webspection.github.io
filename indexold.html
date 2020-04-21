@@ -1,0 +1,354 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Kolor Mobile</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/framework.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,500,500i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">
+    <!-- Don't forget to update PWA version (must be same) in pwa.js & manifest.json -->
+    <link rel="manifest" href="_manifest.json" data-pwa-version="set_by_pwa.js">
+    <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+</head>
+
+
+<body class="theme-light" data-gradient="gradient-1">
+
+    <div id="page">
+
+        <div id="page-preloader">
+            <div class="loader-main">
+                <div class="preload-spinner"></div>
+            </div>
+        </div>
+
+        <div class="header header-fixed header-logo-left">
+            <h1 class="header-icon">Webspection</h1>
+            <!--<a href="#" class="back-button header-logo"></a>-->
+            <a href="#" class="header-icon header-icon-1" data-menu="menu-contact"><i class="fas fa-envelope"></i></a>
+            <a href="#" class="header-icon header-icon-2" data-menu="menu-updates"><i class="fas fa-bell"></i></a>
+            <a href="#" class="header-icon header-icon-3" data-menu="menu-settings"><i
+                    class="fas fa-cog fa-spin font-13"></i></a>
+            <a href="#" class="header-icon header-icon-4" data-toggle-theme><i class="fas fa-moon"></i></a>
+        </div>
+
+        <div class="footer-menu footer-5-icons shadow-huge shadow-huge">
+            <a href="pages-classic-list.html"><i class="fa fa-heart"></i><span>Pages</span></a>
+            <a href="components.html"><i class="fa fa-gift"></i><span>Features</span></a>
+            <a href="index.html" class="active-nav"><i class="fa fa-home"></i><span>Home</span></a>
+            <a href="media.html"><i class="fa fa-image"></i><span>Media</span></a>
+            <a href="page-contact.html"><i class="fa fa-envelope"></i><span>Contact</span></a>
+            <div class="clear"></div>
+        </div>
+
+        <!-- Be sure this is on your main visiting page, for example, the index.html page-->
+        <!-- Install Prompt for Android -->
+        <div id="menu-install-pwa-android" class="menu-box menu-box-detached round-medium"
+            data-menu-type="menu-box-bottom" data-menu-height="340" data-menu-effect="menu-parallax">
+            <div class="boxed-text-huge top-25">
+                <img class="round-medium center-horizontal" src="app/icons/icon-128x128.png" alt="img" width="90">
+                <h4 class="center-text bolder top-20 bottom-10">Add Kolor on your Home Screen</h4>
+                <p>
+                    Install Kolor on your home screen, and access it just like a regular app. It really is that simple!
+                </p>
+                <a href="#"
+                    class="pwa-install button button-xs button-round-medium button-center-large shadow-large bg-blue2-dark bottom-0">Add
+                    to Home Screen</a><br>
+                <a href="#"
+                    class="pwa-dismiss close-menu center-text color-gray2-light uppercase ultrabold opacity-60 under-heading font-10">Maybe
+                    later</a>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+        <!-- Install instructions for iOS -->
+        <div id="menu-install-pwa-ios" class="menu-box menu-box-detached round-medium" data-menu-type="menu-box-bottom"
+            data-menu-height="320" data-menu-effect="menu-parallax">
+            <div class="boxed-text-huge top-25">
+                <img class="round-medium center-horizontal" src="app/icons/icon-128x128.png" alt="img" width="90">
+                <h4 class="center-text bolder top-20 bottom-10">Add Kolor on your Home Screen</h4>
+                <p class="bottom-15">
+                    Install Asterial on your home screen, and access it just like a regular app. Open your Safari menu
+                    and tap "Add to Home Screen".
+                </p>
+                <div class="clear"></div>
+                <a href="#"
+                    class="pwa-dismiss close-menu center-text color-red2-dark uppercase ultrabold opacity-80 top-25">Maybe
+                    later</a>
+                <i class="fa-ios-arrow fa fa-caret-down font-40"></i>
+            </div>
+        </div>
+
+        <div class="page-bg">
+            <div></div>
+        </div>
+        <div class="page-content header-clear-large">
+
+            <div class="visible-slider single-slider owl-carousel owl-no-dots">
+                <div class="slider-item center-text">
+                    <div data-height="250" class="caption round-medium shadow-huge">
+                        <div class="caption-bottom center-text bottom-40">
+                            <h1 class="font-24 font-700 color-white">Hello, I'm Kolor!</h1>
+                            <span class="under-heading color-white font-12 opacity-80">A Gorgeous User Interface and
+                                User Experience</span>
+                        </div>
+                        <div class="caption-overlay bg-gradient-fade"></div>
+                        <div class="caption-bg bg-10"></div>
+                    </div>
+                </div>
+                <div class="slider-item center-text">
+                    <div data-height="250" class="caption round-medium shadow-huge">
+                        <div class="caption-bottom center-text bottom-40">
+                            <h1 class="font-24 font-700 color-white">It's Nice to Meet You</h1>
+                            <span class="under-heading color-white font-12 opacity-80">Let's get you Started on Beauty
+                                and Creativity</span>
+                        </div>
+                        <div class="caption-overlay bg-gradient-fade"></div>
+                        <div class="caption-bg bg-8"></div>
+                    </div>
+                </div>
+                <div class="slider-item center-text">
+                    <div data-height="250" class="caption round-medium shadow-huge">
+                        <div class="caption-bottom center-text bottom-40">
+                            <h1 class="font-24 font-700 color-white">Tones of Features</h1>
+                            <span class="under-heading color-white font-12 opacity-80">And they're Incredibly Easy to
+                                Use</span>
+                        </div>
+                        <div class="caption-overlay bg-gradient-fade"></div>
+                        <div class="caption-bg bg-9"></div>
+                    </div>
+                </div>
+            </div>
+
+            <a class="button button-m caption-under-button round-huge shadow-huge button-center-large bg-red2-dark"
+                href="https://themeforest.net/item/kolor-mobile-mobile-template/22129337">Purchase Today - $26</a>
+
+            <div class="content content-box round-medium shadow-huge top-20">
+                <h2 class="font-700">
+                    Welcome
+                    <i class="fa fa-star heading-icon font-16 color-yellow1-dark"></i>
+                </h2>
+                <p class="top-10">
+                    Kolor is a very powerful, very fast loading, simple to use Mobile Template designed using a modern
+                    color scheme to obtain a gorgeous user experience.
+                </p>
+                <div class="divider top-20 bottom-20"></div>
+                <a href="#" class="text-center uppercase ultrabold font-12">Find out More <i
+                        class="left-10 fa fa-arrow-right"></i></a>
+            </div>
+
+            <div class="visible-slider double-slider owl-carousel owl-no-dots bottom-0">
+
+                <a href="#" class="slider-item">
+                    <div data-height="280" class="caption round-medium shadow-huge">
+                        <div class="caption-bottom left-15 top-15">
+                            <h1 class="color-white font-25">Flatylay</h1>
+                            <p class="under-heading color-white opacity-70 font-10">Beautifuly Organized</p>
+                        </div>
+                        <div class="caption-overlay bg-gradient-fade"></div>
+                        <div class="caption-bg bg-10"></div>
+                    </div>
+                </a>
+                <a href="#" class="slider-item">
+                    <div data-height="280" class="caption round-medium shadow-huge">
+                        <div class="caption-bottom left-15 top-15">
+                            <h1 class="color-white font-25">Sidelay</h1>
+                            <p class="under-heading color-white opacity-70 font-10">Creative & Colorful</p>
+                        </div>
+                        <div class="caption-overlay bg-gradient-fade"></div>
+                        <div class="caption-bg bg-8"></div>
+                    </div>
+                </a>
+                <a href="#" class="slider-item">
+                    <div data-height="280" class="caption round-medium shadow-huge">
+                        <div class="caption-bottom left-15 top-15">
+                            <h1 class="color-white font-25">Cookies</h1>
+                            <p class="under-heading color-white opacity-70 font-10">Always Delicious</p>
+                        </div>
+                        <div class="caption-overlay bg-gradient-fade"></div>
+                        <div class="caption-bg bg-9"></div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge">
+                <h2 class="font-700">
+                    Features you'll Love
+                    <i class="fa fa-heart heading-icon font-16 color-red2-dark"></i>
+                </h2>
+                <p class="top-10 bottom-30">
+                    Filled with easy to use, copy and paste features, made for all users with incredible & flexible
+                    control.
+                </p>
+                <div class="icon-column-left">
+                    <i class="fa fa-bolt bg-gradient-blue2 color-white shadow-huge"></i>
+                    <h1 class="font-17 font-600">Power & Flexibility</h1>
+                    <p>It's flexible, so you can combine and mix and easy to use and very user friendly.</p>
+                </div>
+                <div class="clear bottom-30"></div>
+                <div class="icon-column-left">
+                    <i class="fa fa-user bg-gradient-red2 color-white shadow-huge"></i>
+                    <h1 class="font-17 font-600">Built for Everyone</h1>
+                    <p>Our code is simple, clean, and built for everyone to enjoy and adapt.</p>
+                </div>
+                <div class="clear bottom-30"></div>
+                <div class="icon-column-left">
+                    <i class="fa fa-file bg-gradient-green1 color-white shadow-huge"></i>
+                    <h1 class="font-17 font-600">Hands on Support</h1>
+                    <p>We love our customers, and we're always here for you when you need help.</p>
+                </div>
+                <div class="clear bottom-30"></div>
+                <div class="icon-column-left bottom-15">
+                    <i class="fa fa-mobile-alt bg-gradient-magenta2 color-white shadow-huge"></i>
+                    <h1 class="font-17 font-600">Now, PWA Ready</h1>
+                    <p>Always updated and features added, now you can add Kolor to your Home Screen.</p>
+                </div>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge">
+                <h2 class="font-700">
+                    Testimonials
+                    <i class="fa fa-quote-right heading-icon font-16 color-green1-dark"></i>
+                </h2>
+                <p class="top-10 bottom-30">
+                    We've love our customers and our customers love us. Here are some of their awesome reviews.
+                </p>
+                <div class="center-text bottom-15">
+                    <i class="fa fa-star font-24 color-yellow1-dark"></i>
+                    <i class="fa fa-star font-24 color-yellow1-dark"></i>
+                    <i class="fa fa-star font-24 color-yellow1-dark"></i>
+                    <i class="fa fa-star font-24 color-yellow1-dark"></i>
+                    <i class="fa fa-star font-24 color-yellow1-dark"></i>
+                </div>
+
+                <div class="single-slider owl-carousel owl-no-dots">
+                    <h2 class="font-200 font-18 center-text line-height-huge opacity-70">You can't go wrong with this
+                        template. Author has outstanding code quality and amazing support to boot. Will never leave you
+                        hanging.<br><a href="#" class="font-13 font-500">Profuzion | Envato Buyer</a></h2>
+                    <h2 class="font-200 font-18 center-text line-height-huge opacity-70">You can't go wrong with this
+                        template. Author has outstanding code quality and amazing support to boot. Will never leave you
+                        hanging.<br><a href="#" class="font-13 font-500">Profuzion | Envato Buyer</a></h2>
+                    <h2 class="font-200 font-18 center-text line-height-huge opacity-70">You can't go wrong with this
+                        template. Author has outstanding code quality and amazing support to boot. Will never leave you
+                        hanging.<br><a href="#" class="font-13 font-500">Profuzion | Envato Buyer</a></h2>
+                </div>
+            </div>
+
+            <div data-height="250" class="caption round-medium shadow-huge left-15 right-15">
+                <div class="caption-top">
+                    <p
+                        class="caption-badge bg-gradient-green1 color-white font-700 uppercase font-11 shadow-large text-shadow-medium">
+                        Featured Project</p>
+                </div>
+                <div class="caption-bottom bottom-30">
+                    <h3 class="color-white center-text font-27 bottom-0">Kolor Mobile</h3>
+                    <p class="color-white center-text font-12 opacity-60">Meet our best selling product! Get it today!
+                        It's awesome!</p>
+                </div>
+                <div class="caption-overlay bg-gradient-fade"></div>
+                <div class="caption-bg bg-10"></div>
+            </div>
+            <a class="button button-m caption-under-button round-huge shadow-huge button-center-large bg-green1-dark"
+                href="https://themeforest.net/item/kolor-mobile-mobile-template/22129337">Purchase Today - $26</a>
+
+            <div class="content content-box shadow-huge round-medium top-30">
+                <h2 class="font-700">
+                    Recent Projects
+                    <i class="fa fa-image heading-icon font-16 color-blue2-dark"></i>
+                </h2>
+                <p class="top-10 bottom-30">
+                    Check out our most recent products. You can even filter them with great ease and select your
+                    favorite category.
+                </p>
+                <ul class="gallery-filter-controls">
+                    <li class="gallery-filter-active color-blue-dark gallery-filter-all" data-filter="all">All</li>
+                    <li data-filter="2">Tech</li>
+                    <li data-filter="1">Food</li>
+                    <li data-filter="3">Nature</li>
+                </ul>
+                <div class="divider bottom-15"></div>
+                <div class="gallery gallery-rounded gallery-filter gallery-filter-three bottom-0">
+                    <a href="images/pictures/1t.jpg" data-lightbox="gallery-filter-1" class="default-link filtr-item"
+                        title="Caption Category 1" data-category="1">
+                        <img src="images/empty.png" data-src="images/pictures/1s.jpg" class="preload-image"
+                            alt="sample image">
+                    </a>
+                    <a href="images/pictures/2t.jpg" data-lightbox="gallery-filter-2" class="default-link filtr-item"
+                        title="Caption Category 2" data-category="2">
+                        <img src="images/empty.png" data-src="images/pictures/2s.jpg" class="preload-image"
+                            alt="sample image">
+                    </a>
+                    <a href="images/pictures/3t.jpg" data-lightbox="gallery-filter-3" class="default-link filtr-item"
+                        title="Caption Category 3" data-category="3">
+                        <img src="images/empty.png" data-src="images/pictures/3s.jpg" class="preload-image"
+                            alt="sample image">
+                    </a>
+                    <a href="images/pictures/4t.jpg" data-lightbox="gallery-filter-3" class="default-link filtr-item"
+                        title="Caption Category 3" data-category="3">
+                        <img src="images/empty.png" data-src="images/pictures/4s.jpg" class="preload-image"
+                            alt="sample image">
+                    </a>
+                    <a href="images/pictures/5t.jpg" data-lightbox="gallery-filter-2" class="default-link filtr-item"
+                        title="Caption Category 2" data-category="2">
+                        <img src="images/empty.png" data-src="images/pictures/5s.jpg" class="preload-image"
+                            alt="sample image">
+                    </a>
+                    <a href="images/pictures/6t.jpg" data-lightbox="gallery-filter-1" class="default-link filtr-item"
+                        title="Caption Category 1" data-category="1">
+                        <img src="images/empty.png" data-src="images/pictures/6s.jpg" class="preload-image"
+                            alt="sample image">
+                    </a>
+                    <a href="images/pictures/9t.jpg" data-lightbox="gallery-filter-3" class="default-link filtr-item"
+                        title="Caption Category 3" data-category="3">
+                        <img src="images/empty.png" data-src="images/pictures/9t.jpg" class="preload-image"
+                            alt="sample image">
+                    </a>
+                    <a href="images/pictures/21t.jpg" data-lightbox="gallery-filter-2" class="default-link filtr-item"
+                        title="Caption Category 2" data-category="2">
+                        <img src="images/empty.png" data-src="images/pictures/21t.jpg" class="preload-image"
+                            alt="sample image">
+                    </a>
+                    <a href="images/pictures/14t.jpg" data-lightbox="gallery-filter-1" class="default-link filtr-item"
+                        title="Caption Category 1" data-category="1">
+                        <img src="images/empty.png" data-src="images/pictures/14t.jpg" class="preload-image"
+                            alt="sample image">
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer" data-footer-load="menu-footer.html"></div>
+
+        </div>
+
+        <div id="menu-share" class="menu-box menu-box-detached round-medium" data-menu-type="menu-box-bottom"
+            data-menu-height="390" data-menu-load="menu-share.html" data-menu-effect="menu-over">
+        </div>
+
+        <div id="menu-settings" class="menu-box menu-box-gradient" data-menu-type="menu-box-modal"
+            data-menu-height="100%" data-menu-width="100%" data-menu-load="menu-settings.html"
+            data-menu-effect="menu-over">
+        </div>
+
+        <div id="menu-contact" class="menu-box menu-box-detached round-medium" data-menu-type="menu-box-modal"
+            data-menu-height="470" data-menu-load="menu-contact.html" data-menu-effect="menu-over">
+        </div>
+
+        <div id="menu-updates" class="menu-box menu-box-detached round-medium" data-menu-type="menu-box-top"
+            data-menu-height="390" data-menu-load="menu-bell.html" data-menu-effect="menu-over">
+        </div>
+
+        <div class="menu-hider"></div>
+    </div>
+
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/plugins.js"></script>
+    <script type="text/javascript" src="scripts/custom.js" async></script>
+</body>

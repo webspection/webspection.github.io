@@ -1,0 +1,479 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Webspection</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/framework.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,500,500i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">
+    <!-- Don't forget to update PWA version (must be same) in pwa.js & manifest.json -->
+    <link rel="manifest" href="_manifest.json" data-pwa-version="set_by_pwa.js">
+    <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+    <style>
+        .message {
+            margin-bottom: 15px;
+        }
+
+        .image {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .user {
+            float: left;
+            font-weight: bold;
+            color: #009;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            margin-left: 30px;
+            font-style: italic;
+        }
+
+        .colored {
+            color: #6e63fe;
+        }
+
+        .small,
+        p {
+            font-size: small;
+        }
+
+        textarea {
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #292d3f;
+            color: white;
+            font-size: small;
+        }
+
+        #blocklyContainer {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+        }
+
+        #blocklyDiv {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        
+    </style>
+    <script>
+        //paste the seed here
+        function generateBlockly() {
+            var seed = "QnJ1dGUgRm9yY2UgQXR0YWNrJkJydXRlIGZvcmNlIGF0dGFjayBpcyBhbiBhdHRlbXB0IHRvIGNyYWNrIGEgcGFzc3dvcmQlMkMgb3IgZmluZCB0aGUga2V5IHRvIGRlY3J5cHQgYSBmaWxlLiBBbHRob3VnaCB0aGlzIGF0dGFjayBpcyBhbiBvbGQgbWV0aG9kJTJDIGJ1dCBzdGlsbCB2ZXJ5IGVmZmVjdGl2ZSB3aXRoIGhhY2tlcnMuIERlcGVuZGluZyBvbiB0aGUgc3RyZW5ndGggb2YgdGhlIHBhc3N3b3JkJTJDIHRoZSBhdHRhY2tlciBjYW4gY3JhY2sgdGhlIHBhc3N3b3JkIGZyb20gYSBmZXcgc2Vjb25kcyB0byBtYW55IHllYXJzJiYmICAgICAgICAgICAgICAgIDxoNCBjbGFzcz0iY29sb3Itd2hpdGUgYm9sZCB0b3AtMTAiPkJsb2NrIFRlbXBsYXRlPC9oND4gICAgICAgICAgICAgICAgPHNlY3Rpb24gaWQ9ImJsb2NrbHlDb250YWluZXIiPiAgICAgICAgICAgICAgICAgICAgPGRpdiBpZD0iYmxvY2tseURpdiIgc3R5bGU9IndpZHRoOiAxMDAlIj48L2Rpdj4gICAgICAgICAgICAgICAgICAgIDx4bWwgaWQ9InRvb2xib3giIHN0eWxlPSJkaXNwbGF5OiBub25lIj4gICAgICAgIDxibG9jayB0eXBlPSJnZW5lcmF0ZSBwZXJtdXRhdGlvbiI+PC9ibG9jaz48YmxvY2sgdHlwZT0iY29udHJvbHNfd2hpbGVVbnRpbCI+PC9ibG9jaz48YmxvY2sgdHlwZT0iMSwyLDMsNCw1LDYiPjwvYmxvY2s+PGJsb2NrIHR5cGU9InNldF92YWx1ZSI+PC9ibG9jaz48YmxvY2sgdHlwZT0icGFzc3dvcmQgZGljdGlvbmFyeSI+PC9ibG9jaz48YmxvY2sgdHlwZT0icGVybXV0YXRpb25zIGxpc3QiPjwvYmxvY2s+PGJsb2NrIHR5cGU9InBhc3N3b3JkIGluY29ycmVjdCI+PC9ibG9jaz48YmxvY2sgdHlwZT0icGFzc3dvcmQiPjwvYmxvY2s+PGJsb2NrIHR5cGU9ImV4dHJhY3QgWklQIj48L2Jsb2NrPiAgICAgICAgICAgICAgICAgICAgPC94bWw+ICAgICAgICAgICAgICAgIDwvc2VjdGlvbj4gICAgICAgICZnZW5lcmF0ZXBlcm11dGF0aW9uKCIoMSwyLDMsNCw1LDYpIik7JCgiKHBhc3N3b3JkZGljdGlvbmFyeSkiKS52YWwoIihwZXJtdXRhdGlvbnNsaXN0KSIpd2hpbGUocGFzc3dvcmRpbmNvcnJlY3QpeyQoIigjcGFzc3dvcmQpIikudmFsKCIocGFzc3dvcmRkaWN0aW9uYXJ5KSIpZXh0cmFjdFpJUCgiIik7fSYgICAgICAgICAgICBCbG9ja2x5LkJsb2Nrc1sncGVybXV0YXRpb25zJ10gPSB7ICAgICAgICAgICAgICAgIGluaXQ6IGZ1bmN0aW9uICgpIHsgICAgICAgICAgICAgICAgdGhpcy5hcHBlbmRWYWx1ZUlucHV0KCJOQU1FIikgICAgICAgICAgICAgICAgICAgIC5zZXRDaGVjayhudWxsKSAgICAgICAgICAgICAgICAgICAgLmFwcGVuZEZpZWxkKCJwZXJtdXRhdGlvbnMiKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRQcmV2aW91c1N0YXRlbWVudCh0cnVlLCBudWxsKTsgICAgICAgICAgICAgICAgdGhpcy5zZXROZXh0U3RhdGVtZW50KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldENvbG91cigyMzApOyAgICAgICAgICAgICAgICB0aGlzLnNldFRvb2x0aXAoIiIpOyAgICAgICAgICAgICAgICB0aGlzLnNldEhlbHBVcmwoIiIpOyAgICAgICAgICAgIH0gICAgICAgIH07ICAgICAgICBCbG9ja2x5LkphdmFTY3JpcHRbJ3Blcm11dGF0aW9ucyddID0gZnVuY3Rpb24gKGJsb2NrKSB7ICAgICAgICAgICAgdmFyIHZhbHVlX25hbWUgPSBCbG9ja2x5LkphdmFTY3JpcHQudmFsdWVUb0NvZGUoYmxvY2ssICdOQU1FJywgQmxvY2tseS5KYXZhU2NyaXB0Lk9SREVSX0FUT01JQyk7ICAgICAgICAgICAgICAgICAgICAgICAgdmFyIGNvZGUgPSAncGVybXV0YXRpb25zKCInICsgdmFsdWVfbmFtZSArICciKTtcbic7ICAgICAgICAgICAgcmV0dXJuIGNvZGU7ICAgICAgICB9OyAgICAgICAgICAgICAgICAgICAgICAgIEJsb2NrbHkuQmxvY2tzWydnZW5lcmF0ZSBwZXJtdXRhdGlvbiddID0geyAgICAgICAgICAgICAgICBpbml0OiBmdW5jdGlvbiAoKSB7ICAgICAgICAgICAgICAgIHRoaXMuYXBwZW5kVmFsdWVJbnB1dCgiTkFNRSIpICAgICAgICAgICAgICAgICAgICAuc2V0Q2hlY2sobnVsbCkgICAgICAgICAgICAgICAgICAgIC5hcHBlbmRGaWVsZCgiZ2VuZXJhdGUgcGVybXV0YXRpb24iKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRQcmV2aW91c1N0YXRlbWVudCh0cnVlLCBudWxsKTsgICAgICAgICAgICAgICAgdGhpcy5zZXROZXh0U3RhdGVtZW50KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldENvbG91cigyMzApOyAgICAgICAgICAgICAgICB0aGlzLnNldFRvb2x0aXAoIiIpOyAgICAgICAgICAgICAgICB0aGlzLnNldEhlbHBVcmwoIiIpOyAgICAgICAgICAgIH0gICAgICAgIH07ICAgICAgICBCbG9ja2x5LkphdmFTY3JpcHRbJ2dlbmVyYXRlIHBlcm11dGF0aW9uJ10gPSBmdW5jdGlvbiAoYmxvY2spIHsgICAgICAgICAgICB2YXIgdmFsdWVfbmFtZSA9IEJsb2NrbHkuSmF2YVNjcmlwdC52YWx1ZVRvQ29kZShibG9jaywgJ05BTUUnLCBCbG9ja2x5LkphdmFTY3JpcHQuT1JERVJfQVRPTUlDKTsgICAgICAgICAgICAgICAgICAgICAgICB2YXIgY29kZSA9ICdnZW5lcmF0ZSBwZXJtdXRhdGlvbigiJyArIHZhbHVlX25hbWUgKyAnIik7XG4nOyAgICAgICAgICAgIHJldHVybiBjb2RlOyAgICAgICAgfTsgICAgICAgICAgICAgICAgICAgICAgICBCbG9ja2x5LkJsb2Nrc1snMSwyLDMsNCw1LDYnXSA9IHsgICAgICAgICAgICBpbml0OiBmdW5jdGlvbiAoKSB7ICAgICAgICAgICAgICAgIHRoaXMuYXBwZW5kRHVtbXlJbnB1dCgpICAgICAgICAgICAgICAgICAgICAuYXBwZW5kRmllbGQoIjEsMiwzLDQsNSw2Iik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0T3V0cHV0KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldENvbG91cigxNjApOyAgICAgICAgICAgICAgICB0aGlzLnNldFRvb2x0aXAoIiIpOyAgICAgICAgICAgICAgICB0aGlzLnNldEhlbHBVcmwoIiIpOyAgICAgICAgICAgIH0gICAgICAgIH07ICAgICAgICBCbG9ja2x5LkphdmFTY3JpcHRbJzEsMiwzLDQsNSw2J10gPSBmdW5jdGlvbiAoYmxvY2spIHsgICAgICAgICAgICB2YXIgY29kZSA9ICcxLDIsMyw0LDUsNic7ICAgICAgICAgICAgcmV0dXJuIFtjb2RlLCBCbG9ja2x5LkphdmFTY3JpcHQuT1JERVJfTk9ORV07ICAgICAgICAgICAgICAgICAgICB9OyAgICAgICAgICAgICAgICAgICAgICAgIEJsb2NrbHkuQmxvY2tzWydwYXNzd29yZCBkaWN0aW9uYXJ5J10gPSB7ICAgICAgICAgICAgaW5pdDogZnVuY3Rpb24gKCkgeyAgICAgICAgICAgICAgICB0aGlzLmFwcGVuZER1bW15SW5wdXQoKSAgICAgICAgICAgICAgICAgICAgLmFwcGVuZEZpZWxkKCJwYXNzd29yZCBkaWN0aW9uYXJ5Iik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0T3V0cHV0KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldENvbG91cigxNjApOyAgICAgICAgICAgICAgICB0aGlzLnNldFRvb2x0aXAoIiIpOyAgICAgICAgICAgICAgICB0aGlzLnNldEhlbHBVcmwoIiIpOyAgICAgICAgICAgIH0gICAgICAgIH07ICAgICAgICBCbG9ja2x5LkphdmFTY3JpcHRbJ3Bhc3N3b3JkIGRpY3Rpb25hcnknXSA9IGZ1bmN0aW9uIChibG9jaykgeyAgICAgICAgICAgIHZhciBjb2RlID0gJ3Bhc3N3b3JkIGRpY3Rpb25hcnknOyAgICAgICAgICAgIHJldHVybiBbY29kZSwgQmxvY2tseS5KYXZhU2NyaXB0Lk9SREVSX05PTkVdOyAgICAgICAgICAgICAgICAgICAgfTsgICAgICAgICAgICAgICAgICAgICAgICBCbG9ja2x5LkJsb2Nrc1sncGVybXV0YXRpb25zIGxpc3QnXSA9IHsgICAgICAgICAgICBpbml0OiBmdW5jdGlvbiAoKSB7ICAgICAgICAgICAgICAgIHRoaXMuYXBwZW5kRHVtbXlJbnB1dCgpICAgICAgICAgICAgICAgICAgICAuYXBwZW5kRmllbGQoInBlcm11dGF0aW9ucyBsaXN0Iik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0T3V0cHV0KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldENvbG91cigxNjApOyAgICAgICAgICAgICAgICB0aGlzLnNldFRvb2x0aXAoIiIpOyAgICAgICAgICAgICAgICB0aGlzLnNldEhlbHBVcmwoIiIpOyAgICAgICAgICAgIH0gICAgICAgIH07ICAgICAgICBCbG9ja2x5LkphdmFTY3JpcHRbJ3Blcm11dGF0aW9ucyBsaXN0J10gPSBmdW5jdGlvbiAoYmxvY2spIHsgICAgICAgICAgICB2YXIgY29kZSA9ICdwZXJtdXRhdGlvbnMgbGlzdCc7ICAgICAgICAgICAgcmV0dXJuIFtjb2RlLCBCbG9ja2x5LkphdmFTY3JpcHQuT1JERVJfTk9ORV07ICAgICAgICAgICAgICAgICAgICB9OyAgICAgICAgICAgICAgICAgICAgICAgIEJsb2NrbHkuQmxvY2tzWydwYXNzd29yZCBpbmNvcnJlY3QnXSA9IHsgICAgICAgICAgICBpbml0OiBmdW5jdGlvbiAoKSB7ICAgICAgICAgICAgICAgIHRoaXMuYXBwZW5kRHVtbXlJbnB1dCgpICAgICAgICAgICAgICAgICAgICAuYXBwZW5kRmllbGQoInBhc3N3b3JkIGluY29ycmVjdCIpOyAgICAgICAgICAgICAgICB0aGlzLnNldE91dHB1dCh0cnVlLCBudWxsKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRDb2xvdXIoMTYwKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRUb29sdGlwKCIiKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRIZWxwVXJsKCIiKTsgICAgICAgICAgICB9ICAgICAgICB9OyAgICAgICAgQmxvY2tseS5KYXZhU2NyaXB0WydwYXNzd29yZCBpbmNvcnJlY3QnXSA9IGZ1bmN0aW9uIChibG9jaykgeyAgICAgICAgICAgIHZhciBjb2RlID0gJ3Bhc3N3b3JkIGluY29ycmVjdCc7ICAgICAgICAgICAgcmV0dXJuIFtjb2RlLCBCbG9ja2x5LkphdmFTY3JpcHQuT1JERVJfTk9ORV07ICAgICAgICAgICAgICAgICAgICB9OyAgICAgICAgICAgICAgICAgICAgICAgIEJsb2NrbHkuQmxvY2tzWydwYXNzd29yZCddID0geyAgICAgICAgICAgIGluaXQ6IGZ1bmN0aW9uICgpIHsgICAgICAgICAgICAgICAgdGhpcy5hcHBlbmREdW1teUlucHV0KCkgICAgICAgICAgICAgICAgICAgIC5hcHBlbmRGaWVsZCgicGFzc3dvcmQiKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRPdXRwdXQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDE2MCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsncGFzc3dvcmQnXSA9IGZ1bmN0aW9uIChibG9jaykgeyAgICAgICAgICAgIHZhciBjb2RlID0gJ3Bhc3N3b3JkJzsgICAgICAgICAgICByZXR1cm4gW2NvZGUsIEJsb2NrbHkuSmF2YVNjcmlwdC5PUkRFUl9OT05FXTsgICAgICAgICAgICAgICAgICAgIH07ICAgICAgICAgICAgICAgICAgICAgICAgQmxvY2tseS5CbG9ja3NbJ2V4dHJhY3QgWklQJ10gPSB7ICAgICAgICAgICAgICAgIGluaXQ6IGZ1bmN0aW9uICgpIHsgICAgICAgICAgICAgICAgdGhpcy5hcHBlbmRWYWx1ZUlucHV0KCJOQU1FIikgICAgICAgICAgICAgICAgICAgIC5zZXRDaGVjayhudWxsKSAgICAgICAgICAgICAgICAgICAgLmFwcGVuZEZpZWxkKCJleHRyYWN0IFpJUCIpOyAgICAgICAgICAgICAgICB0aGlzLnNldFByZXZpb3VzU3RhdGVtZW50KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldE5leHRTdGF0ZW1lbnQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDIzMCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsnZXh0cmFjdCBaSVAnXSA9IGZ1bmN0aW9uIChibG9jaykgeyAgICAgICAgICAgIHZhciB2YWx1ZV9uYW1lID0gQmxvY2tseS5KYXZhU2NyaXB0LnZhbHVlVG9Db2RlKGJsb2NrLCAnTkFNRScsIEJsb2NrbHkuSmF2YVNjcmlwdC5PUkRFUl9BVE9NSUMpOyAgICAgICAgICAgICAgICAgICAgICAgIHZhciBjb2RlID0gJ2V4dHJhY3QgWklQKCInICsgdmFsdWVfbmFtZSArICciKTtcbic7ICAgICAgICAgICAgcmV0dXJuIGNvZGU7ICAgICAgICB9OyAgICAgICAgICAgIA==";
+            generate();
+            function generate() {
+                // stuff you want to do every second
+                xmlSourceCode = atob(seed);
+                var xmlList = xmlSourceCode.split('&');
+                $("#tutorialName").html("Brute force attack");
+                $("#tutorialContent").html("Brute force attack is an attempt to crack a password, or find the key to decrypt a file. Although this attack is an old method, but still very effective with hackers. Depending on the strength of the password, the attacker can crack the password from a few seconds to many years");
+                $("#tutorialTask").html("A zip file is password protected. <br><br>The password is generated with the following policy:<br><b><span style=\"color:#e0c341\"> • Password only contains characters {1,2,3,4,5,6} </b><br><b><span style=\"color:#e0c341\"> • Password is 6 characters long</b></span><br><br> Try to use brute force attack to crack the ZIP achive");
+                $("#hints").html(xmlList[3]);
+                $("#blockWorkspace").html(xmlList[4]);
+                console.log(xmlList[6]);
+                eval(xmlList[6]);
+
+                var xmlSourceCode = "";
+                var options = {
+                    toolbox: toolbox,
+                    collapse: false,
+                    comments: false,
+                    disable: false,
+                    maxBlocks: Infinity,
+                    trashcan: false,
+                    horizontalLayout: true,
+                    toolboxPosition: 'start',
+                    css: true,
+                    media: 'https://blockly-demo.appspot.com/static/media/',
+                    rtl: false,
+                    scrollbars: false,
+                    sounds: true,
+                    oneBasedIndex: true,
+                    zoom: {
+                        controls: false,
+                        wheel: false,
+                        startScale: 0.7,
+                        maxScale: 3,
+                        minScale: 0.3,
+                        scaleSpeed: 1.2
+                    }
+                };
+                var workspace = Blockly.inject('blocklyDiv', options);
+
+                function sleep(delay) {
+                    var start = new Date().getTime();
+                    while (new Date().getTime() < start + delay);
+                }
+                function myUpdateFunction(event) {
+                    $("#my_image").attr("src", "images/bf1.PNG");
+                    var code = Blockly.JavaScript.workspaceToCode(workspace);
+                    document.getElementById('textarea').value = code;
+                    var targetStr = `
+                    generate permutation("(1,2,3,4,5,6)");
+                    $("(password dictionary)").val("(permutations list)")
+                    while (password incorrect) {
+                    $("(password)").val("(password dictionary)")
+                    extract ZIP("");
+                    }
+                    `.replace(/(\r\n|\n|\r)/gm, "").replace(/ /g, '');
+                    console.log(targetStr);
+                    var sourceCode = document.getElementById('textarea').value.replace(/(\r\n|\n|\r)/gm, "").replace(/ /g, '');
+                    console.log(sourceCode);
+                    console.log(targetStr);
+                    if (sourceCode == targetStr) {
+                        $("#alertButton").click();
+                        $("#my_image").attr("src", "images/bf2.PNG");
+                    }
+                }
+                workspace.addChangeListener(myUpdateFunction);
+            }
+        }
+    </script>
+</head>
+
+<body onload="generateBlockly()" class="theme-light" data-gradient="gradient-1">
+
+    <div id="page">
+
+        <div id="page-preloader">
+            <div class="loader-main">
+                <div class="preload-spinner"></div>
+            </div>
+        </div>
+
+        <div class="header header-fixed header-logo-app">
+            <h1 class="content top-15">ⓦ Webspection</h1>
+            <a href="#" class="back-button header-icon header-icon-1"><i class="fas fa-arrow-left font-13"></i></a>
+            <a href="#" class="header-icon header-icon-2" data-menu="menu-settings"><i
+                    class="fas fa-cog fa-spin font-13"></i></a>
+            <a href="#" class="header-icon header-icon-3" data-toggle-theme><i class="fas fa-moon"></i></a>
+        </div>
+
+        <div class="footer-menu footer-5-icons shadow-huge shadow-huge">
+            <a href=""><i class="fa fa-heart"></i><span></span></a>
+            <a href="page-about.html"><i class="fa fa-gift"></i><span>About</span></a>
+            <a href="index.html" class="active-nav"><i class="fa fa-home"></i><span>Home</span></a>
+            <a href="media.html"><i class="fa fa-image"></i><span>Tutorial</span></a>
+            <a href="page-contact.html"><i class="fa fa-gift"></i><span>Create</span></a>
+            <div class="clear"></div>
+        </div>
+
+        <div class="page-bg">
+            <div></div>
+        </div>
+        <div id="notification-5" class="notification-style notification-android bg-green1-dark">
+            <i class="fa fa-check color-green1-dark bg-white"></i>
+            <h1 class="font-15">Success!</h1>
+            <strong>Time</strong>
+            <p>
+                Congratulations! You have completed the tutorial!
+            </p>
+            <div class="notification-buttons">
+                <div class="one-half">
+                    <a href="#"><i class="fa fa-info-circle"></i>Find out More</a>
+                </div>
+                <div class="one-half">
+                    <a href="#"><i class="fa fa-arrow-right"></i>Thank you</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="page-content header-clear-large">
+
+            <a id="alertButton" style="display: none" href="#" data-notification="notification-5" class="no-border"><i
+                    class="font-16 fa fa-check-square color-green1-dark"></i><span>Confirmation Alert</span><i
+                    class="fa fa-angle-right"></i></a>
+
+            <div style="display: none" class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Paste Your Seed Here</h4>
+                <textarea class="content" id="xmlCode" rows="10" cols="35"></textarea>
+                <button class="button shadow-huge button-m button-circle bg-yellow2-dark"
+                    onclick="generate()">Generate</button>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge">
+                <h4 id="tutorialName" class="bold">Automated Threat</h4>
+                <div style="width: 50%; float:left">
+                    <p id="tutorialContent" class="bottom-0">
+                        This is a threat events to applications undertaken using automated
+                        actions. The focus is on abuse of functionality - misuse of inherent functionality and related
+                        design flaws
+                    </p>
+                </div>
+                <div style="width: 40%; float:right">
+                    <img style="background-color: white;" src="images/phishing.PNG" />
+                </div>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge">
+                <h4 class="bold">What is encryption?</h4>
+                <p class="bottom-0">
+                    Encryption is the process of encoding information. When you are using a password-based encryption,
+                    the file is safe as long as the password is safe and you are using a secure algorithm for encryption
+                    like AES
+                </p>
+                <br>
+                <h4 class="bold">Are password protected ZIP achive secure?</h4>
+                <p class="bottom-0">
+                    ZIP archives are designed as a container. Encryption is done on the files inside the container;
+                    thus, confidentiality and integrity are granted for the files inside the ZIP. The ZIP archive is not
+                    password protected, but the files insides are
+                </p>
+            </div>
+            <script>
+                function openInNewTab(url) {
+                    var win = window.open(url);
+                    win.focus();
+                }
+            </script>
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Your Task</h4>
+                <p id="tutorialTask" class="color-white bottom-10">
+                    Create a program to create bulk accounts
+                </p>
+                <button onclick="openInNewTab('how-to-play.html');"
+                    class="button shadow-huge button-s button-circle bg-yellow2-dark">How to play?</button>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <div style="width: 50%; float:left">
+                    <h4 class="color-white bold top-10">Hints</h4>
+                    <p style="display: none" id="hints" class="color-white bottom-10">
+                        You can use a loop to create multiple accounts</p>
+                    <p id="hint" class="color-white bottom-10">
+                        You can use a loop to create multiple accounts</p>
+                </div>
+
+                <div style="width: 50%; float:right">
+                    <h4 class="color-white bold top-10">Visualization</h4>
+                    <img style="background-color: white;" id="my_image" src="images/sa1.png" />
+                </div>
+            </div>
+
+            <div id="blockWorkspace" class="content content-box round-medium shadow-huge bg-blue2-dark">
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Compiler</h4>
+                <textarea class="content" id="textarea" rows="10" cols="35"></textarea>
+            </div>
+
+            <div class="footer" data-footer-load="menu-footer.html"></div>
+        </div>
+
+        <!-- Page Menus -->
+        <div id="menu-share" class="menu-box menu-box-detached round-medium" data-menu-type="menu-box-bottom"
+            data-menu-height="390" data-menu-load="menu-share.html" data-menu-effect="menu-over">
+        </div>
+
+        <div id="menu-settings" class="menu-box menu-box-gradient" data-menu-type="menu-box-modal"
+            data-menu-height="100%" data-menu-width="100%" data-menu-load="menu-settings.html"
+            data-menu-effect="menu-over">
+        </div>
+
+        <div class="menu-hider"></div>
+    </div>
+
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/plugins.js"></script>
+    <script type="text/javascript" src="scripts/custom.js" async></script>
+
+    <script src="js/blockly_compressed.js"></script>
+    <script src="js/blocks_compressed.js"></script>
+    <script src="js/javascript_compressed.js"></script>
+    <script src="js/en.js"></script>
+    <script>
+        Blockly.Blocks['print'] = {
+            init: function () {
+                this.appendValueInput("NAME")
+                    .setCheck(null)
+                    .appendField("print");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(230);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['print'] = function (block) {
+            var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+            // TODO: Assemble JavaScript into code variable.
+            var code = 'console.log("' + value_name + '");\n';
+            return code;
+        };
+        Blockly.Blocks['create_account'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("create account");
+                this.setPreviousStatement(true, null);
+                this.setColour(65);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['create_account'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = '$("#register").click();\n';
+            return code;
+        };
+        Blockly.Blocks['set_value'] = {
+            init: function () {
+                this.appendValueInput("variable")
+                    .setCheck(null)
+                    .appendField("set");
+                this.appendValueInput("value")
+                    .setCheck(null)
+                    .appendField("=");
+                this.setInputsInline(true);
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(210);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['set_value'] = function (block) {
+            var value_variable = Blockly.JavaScript.valueToCode(block, 'variable', Blockly.JavaScript.ORDER_ATOMIC);
+            var value_value = Blockly.JavaScript.valueToCode(block, 'value', Blockly.JavaScript.ORDER_ATOMIC);
+            // TODO: Assemble JavaScript into code variable.
+            var code = '$("' + value_variable + '").val("' + value_value + '")\n';
+            return code;
+        };
+        Blockly.Blocks['password'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("password");
+                this.setOutput(true, null);
+                this.setColour(160);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['password'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = '#password';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+        Blockly.Blocks['randomstring'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("random string");
+                this.setInputsInline(false);
+                this.setOutput(true, null);
+                this.setColour(290);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['randomstring'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = 'Math.random().toString(36).substring(7);';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+        Blockly.Blocks['username'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("username");
+                this.setOutput(true, null);
+                this.setColour(160);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['username'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = '#username';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+        Blockly.Blocks['string_length'] = {
+            init: function () {
+                this.appendValueInput('VALUE')
+                    .setCheck('String')
+                    .appendField('length of');
+                this.setOutput(true, 'Number');
+                this.setColour(160);
+                this.setTooltip('Returns number of letters in the provided text.');
+                this.setHelpUrl('http://www.w3schools.com/jsref/jsref_length_string.asp');
+            }
+        };
+        Blockly.JavaScript['string_length'] = function (block) {
+            // String or array length.
+            var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
+                Blockly.JavaScript.ORDER_FUNCTION_CALL) || '\'\'';
+            return [argument0 + '.length', Blockly.JavaScript.ORDER_MEMBER];
+        };
+
+
+    </script>
+    <script id="lzutf8" src="https://cdn.jsdelivr.net/npm/lzutf8/build/production/lzutf8.js"></script>
+
+    <script>
+
+        $(function () {
+            setInterval(detectTextArea, 1000);
+        });
+        function found(lookupValue, testString) {
+            return testString.indexOf(lookupValue) !== -1;
+        }
+
+        function detectTextArea() {
+            var code = document.getElementById('textarea').value;
+            var hintstr = "";
+            var flag = 0;
+
+            //var
+            var bot = false;
+            var http = false;
+
+
+            //try to generate a password dictionary containing all possible passwords that match the password policy
+            //try to brutefoce the zip file with the generated dictionary file
+            //can you crack the ZIP achive?
+            if (!found("generate permutation(\"(1,2,3,4,5,6)\");\n$(\"(password dictionary)\").val(\"(permutations list)\")\n", code)) {
+                hintstr += "<b><span style=\"color:red\">• Try to generate a password dictionary containing all possible passwords that match the password policy</span></b><br>";
+            } else {
+                hintstr += "<b><span style=\"color:lightgreen\">• Correct! A password dictionary is generated containing all possible passwords that match the password policy</span></b><br>";
+            }
+
+            if (!found("while (password incorrect) {\n  $(\"(password)\").val(\"(password dictionary)\")\n  extract ZIP(\"\");\n}\n", code)) {
+                hintstr += "<b><span style=\"color:red\">• Try to brutefoce the zip file with the generated dictionary file</span></b><br>";
+            } else {
+                hintstr += "<b><span style=\"color:lightgreen\">• Correct! The program is brute-forcing the zip file with the generated dictionary file</span></b><br>";
+            }
+
+            hintstr += "<b><span style=\"color:red\">• can you crack the ZIP achive?</span></b><br>"
+
+            // if (bot && http) {
+
+            //$("#my_image").attr("src", "images/tf1.png");
+            //}
+            $("#hint").html(hintstr);
+        }
+    </script>
+</body>

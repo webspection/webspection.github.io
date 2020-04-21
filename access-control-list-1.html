@@ -1,0 +1,378 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Webspection</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/framework.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,500,500i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">
+    <!-- Don't forget to update PWA version (must be same) in pwa.js & manifest.json -->
+    <link rel="manifest" href="_manifest.json" data-pwa-version="set_by_pwa.js">
+    <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+    <style>
+        .message {
+            margin-bottom: 15px;
+        }
+
+        .image {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .user {
+            float: left;
+            font-weight: bold;
+            color: #009;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            margin-left: 30px;
+            font-style: italic;
+        }
+
+        .colored {
+            color: #6e63fe;
+        }
+
+        .small,
+        p {
+            font-size: small;
+        }
+
+        textarea {
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #292d3f;
+            color: white;
+            font-size: small;
+        }
+
+        #blocklyContainer {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+        }
+
+        #blocklyDiv {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body class="theme-light" data-gradient="gradient-1">
+
+    <div id="page">
+
+        <div id="page-preloader">
+            <div class="loader-main">
+                <div class="preload-spinner"></div>
+            </div>
+        </div>
+
+        <div class="header header-fixed header-logo-app">
+            <h1 class="content top-15">ⓦ Webspection</h1>
+            <a href="#" class="back-button header-icon header-icon-1"><i class="fas fa-arrow-left font-13"></i></a>
+            <a href="#" class="header-icon header-icon-2" data-menu="menu-settings"><i
+                    class="fas fa-cog fa-spin font-13"></i></a>
+            <a href="#" class="header-icon header-icon-3" data-toggle-theme><i class="fas fa-moon"></i></a>
+        </div>
+
+        <div class="footer-menu footer-5-icons shadow-huge shadow-huge">
+            <a href=""><i class="fa fa-heart"></i><span></span></a>
+            <a href="page-about.html"><i class="fa fa-gift"></i><span>About</span></a>
+            <a href="index.html" class="active-nav"><i class="fa fa-home"></i><span>Home</span></a>
+            <a href="media.html"><i class="fa fa-image"></i><span>Tutorial</span></a>
+            <a href="page-contact.html"><i class="fa fa-gift"></i><span>Create</span></a>
+            <div class="clear"></div>
+        </div>
+
+        <div class="page-bg">
+            <div></div>
+        </div>
+        <div id="notification-5" class="notification-style notification-android bg-green1-dark">
+            <i class="fa fa-check color-green1-dark bg-white"></i>
+            <h1 class="font-15">Success!</h1>
+            <strong>Time</strong>
+            <p>
+                Congratulations! You have completed the tutorial!
+            </p>
+            <div class="notification-buttons">
+                <div class="one-half">
+                    <a href="#"><i class="fa fa-info-circle"></i>Find out More</a>
+                </div>
+                <div class="one-half">
+                    <a href="#"><i class="fa fa-arrow-right"></i>Thank you</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="page-content header-clear-large">
+
+            <a id="alertButton" style="display: none" href="#" data-notification="notification-5" class="no-border"><i
+                    class="font-16 fa fa-check-square color-green1-dark"></i><span>Confirmation Alert</span><i
+                    class="fa fa-angle-right"></i></a>
+
+            <div style="display: none" class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Paste Your Seed Here</h4>
+                <textarea class="content" id="xmlCode" rows="10" cols="35"></textarea>
+                <button class="button shadow-huge button-m button-circle bg-yellow2-dark"
+                    onclick="generate()">Generate</button>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge">
+                <h4 id="tutorialName" class="bold">Automated Threat</h4>
+                <p id="tutorialContent" class="bottom-0">
+                    This is a threat events to applications undertaken using automated
+                    actions. The focus is on abuse of functionality - misuse of inherent functionality and related
+                    design flaws
+                </p>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Your Task</h4>
+                <p id="tutorialTask" class="color-white bottom-10">
+                    Create a program to create bulk accounts
+                </p>
+            </div>
+
+            <div id="blockWorkspace" class="content content-box round-medium shadow-huge bg-blue2-dark">
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Compiler</h4>
+                <textarea class="content" id="textarea" rows="10" cols="35"></textarea>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-gradient-green1">
+                <h4 class="color-white bold top-10">Hints</h4>
+                <p id="hints" class="color-white bottom-10">
+                    You can use a loop to create multiple accounts
+            </div>
+
+
+
+
+            <div class="footer" data-footer-load="menu-footer.html"></div>
+        </div>
+
+        <!-- Page Menus -->
+        <div id="menu-share" class="menu-box menu-box-detached round-medium" data-menu-type="menu-box-bottom"
+            data-menu-height="390" data-menu-load="menu-share.html" data-menu-effect="menu-over">
+        </div>
+
+        <div id="menu-settings" class="menu-box menu-box-gradient" data-menu-type="menu-box-modal"
+            data-menu-height="100%" data-menu-width="100%" data-menu-load="menu-settings.html"
+            data-menu-effect="menu-over">
+        </div>
+
+        <div class="menu-hider"></div>
+    </div>
+
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/plugins.js"></script>
+    <script type="text/javascript" src="scripts/custom.js" async></script>
+
+    <script src="js/blockly_compressed.js"></script>
+    <script src="js/blocks_compressed.js"></script>
+    <script src="js/javascript_compressed.js"></script>
+    <script src="js/en.js"></script>
+    <script>
+        Blockly.Blocks['print'] = {
+            init: function () {
+                this.appendValueInput("NAME")
+                    .setCheck(null)
+                    .appendField("print");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(230);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['print'] = function (block) {
+            var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+            // TODO: Assemble JavaScript into code variable.
+            var code = 'console.log("' + value_name + '");\n';
+            return code;
+        };
+        Blockly.Blocks['create_account'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("create account");
+                this.setPreviousStatement(true, null);
+                this.setColour(65);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['create_account'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = '$("#register").click();\n';
+            return code;
+        };
+        Blockly.Blocks['set_value'] = {
+            init: function () {
+                this.appendValueInput("variable")
+                    .setCheck(null)
+                    .appendField("set");
+                this.appendValueInput("value")
+                    .setCheck(null)
+                    .appendField("=");
+                this.setInputsInline(true);
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(210);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['set_value'] = function (block) {
+            var value_variable = Blockly.JavaScript.valueToCode(block, 'variable', Blockly.JavaScript.ORDER_ATOMIC);
+            var value_value = Blockly.JavaScript.valueToCode(block, 'value', Blockly.JavaScript.ORDER_ATOMIC);
+            // TODO: Assemble JavaScript into code variable.
+            var code = '$("' + value_variable + '").val("' + value_value + '")\n';
+            return code;
+        };
+        Blockly.Blocks['password'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("password");
+                this.setOutput(true, null);
+                this.setColour(160);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['password'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = '#password';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+        Blockly.Blocks['randomstring'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("random string");
+                this.setInputsInline(false);
+                this.setOutput(true, null);
+                this.setColour(290);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['randomstring'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = 'Math.random().toString(36).substring(7);';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+        Blockly.Blocks['username'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("username");
+                this.setOutput(true, null);
+                this.setColour(160);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['username'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = '#username';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+        Blockly.Blocks['string_length'] = {
+            init: function () {
+                this.appendValueInput('VALUE')
+                    .setCheck('String')
+                    .appendField('length of');
+                this.setOutput(true, 'Number');
+                this.setColour(160);
+                this.setTooltip('Returns number of letters in the provided text.');
+                this.setHelpUrl('http://www.w3schools.com/jsref/jsref_length_string.asp');
+            }
+        };
+        Blockly.JavaScript['string_length'] = function (block) {
+            // String or array length.
+            var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
+                Blockly.JavaScript.ORDER_FUNCTION_CALL) || '\'\'';
+            return [argument0 + '.length', Blockly.JavaScript.ORDER_MEMBER];
+        };
+
+
+    </script>
+    <script id="lzutf8" src="https://cdn.jsdelivr.net/npm/lzutf8/build/production/lzutf8.js"></script>
+    <script>
+        //paste the seed here
+        var seed = "QWNjZXNzLWNvbnRyb2wgbGlzdCAlMjhBQ0wlMjkmSXQgc3BlY2lmaWVzIHdoaWNoIHVzZXJzIG9yIHN5c3RlbSBwcm9jZXNzZXMgYXJlIGdyYW50ZWQgYWNjZXNzIHRvIG9iamVjdHMmVHJ5IHRvIGNyZWF0ZSBhIHByb2dyYW0gdG8gc2ltdWxhdGUgQUNMJldoZW4gc2hvdWxkIHdlIGdyYW50IHVzZXIgYWNjZXNzIHRvIHRoZSBvYmplY3QlM0YmICAgICAgICAgICAgICAgIDxoNCBjbGFzcz0iY29sb3Itd2hpdGUgYm9sZCB0b3AtMTAiPkJsb2NrIFRlbXBsYXRlPC9oND4gICAgICAgICAgICAgICAgPHNlY3Rpb24gaWQ9ImJsb2NrbHlDb250YWluZXIiPiAgICAgICAgICAgICAgICAgICAgPGRpdiBpZD0iYmxvY2tseURpdiIgc3R5bGU9IndpZHRoOiAxMDAlIj48L2Rpdj4gICAgICAgICAgICAgICAgICAgIDx4bWwgaWQ9InRvb2xib3giIHN0eWxlPSJkaXNwbGF5OiBub25lIj4gICAgICAgIDxibG9jayB0eXBlPSJydWxlcyBtYXRjaGVkIj48L2Jsb2NrPjxibG9jayB0eXBlPSJydWxlcyBub3QgbWF0Y2hlZCI+PC9ibG9jaz48YmxvY2sgdHlwZT0idXNlciByZXF1ZXN0IGFjY2VzcyI+PC9ibG9jaz48YmxvY2sgdHlwZT0icGVybWlzc2lvbiBwYXNzIj48L2Jsb2NrPjxibG9jayB0eXBlPSJwZXJtaXNzaW9uIGZhaWwiPjwvYmxvY2s+PGJsb2NrIHR5cGU9ImdyYW50IHVzZXIgYWNjZXNzIj48L2Jsb2NrPjxibG9jayB0eXBlPSJkZW55IHVzZXIgYWNjZXNzIj48L2Jsb2NrPjxibG9jayB0eXBlPSJjb250cm9sc19pZiI+PC9ibG9jaz4gICAgICAgICAgICAgICAgICAgIDwveG1sPiAgICAgICAgICAgICAgICA8L3NlY3Rpb24+ICAgICAgICAmdXNlcnJlcXVlc3RhY2Nlc3MoIiIpO2lmKHJ1bGVzbWF0Y2hlZCl7aWYocGVybWlzc2lvbnBhc3Mpe2dyYW50dXNlcmFjY2VzcygiIik7fWlmKHBlcm1pc3Npb25mYWlsKXtkZW55dXNlcmFjY2VzcygiIik7fX1pZihydWxlc25vdG1hdGNoZWQpe2dyYW50dXNlcmFjY2VzcygiIik7fSYgICAgICAgICAgICBCbG9ja2x5LkJsb2Nrc1sndXNlciByZXF1ZXN0IGFjY2VzcyddID0geyAgICAgICAgICAgICAgICBpbml0OiBmdW5jdGlvbiAoKSB7ICAgICAgICAgICAgICAgIHRoaXMuYXBwZW5kVmFsdWVJbnB1dCgiTkFNRSIpICAgICAgICAgICAgICAgICAgICAuc2V0Q2hlY2sobnVsbCkgICAgICAgICAgICAgICAgICAgIC5hcHBlbmRGaWVsZCgidXNlciByZXF1ZXN0IGFjY2VzcyIpOyAgICAgICAgICAgICAgICB0aGlzLnNldFByZXZpb3VzU3RhdGVtZW50KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldE5leHRTdGF0ZW1lbnQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDIzMCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsndXNlciByZXF1ZXN0IGFjY2VzcyddID0gZnVuY3Rpb24gKGJsb2NrKSB7ICAgICAgICAgICAgdmFyIHZhbHVlX25hbWUgPSBCbG9ja2x5LkphdmFTY3JpcHQudmFsdWVUb0NvZGUoYmxvY2ssICdOQU1FJywgQmxvY2tseS5KYXZhU2NyaXB0Lk9SREVSX0FUT01JQyk7ICAgICAgICAgICAgICAgICAgICAgICAgdmFyIGNvZGUgPSAndXNlciByZXF1ZXN0IGFjY2VzcygiJyArIHZhbHVlX25hbWUgKyAnIik7XG4nOyAgICAgICAgICAgIHJldHVybiBjb2RlOyAgICAgICAgfTsgICAgICAgICAgICAgICAgICAgICAgICBCbG9ja2x5LkJsb2Nrc1sncnVsZXMgbWF0Y2hlZCddID0geyAgICAgICAgICAgICAgICBpbml0OiBmdW5jdGlvbiAoKSB7ICAgICAgICAgICAgICAgIHRoaXMuYXBwZW5kVmFsdWVJbnB1dCgiTkFNRSIpICAgICAgICAgICAgICAgICAgICAuc2V0Q2hlY2sobnVsbCkgICAgICAgICAgICAgICAgICAgIC5hcHBlbmRGaWVsZCgicnVsZXMgbWF0Y2hlZCIpOyAgICAgICAgICAgICAgICB0aGlzLnNldFByZXZpb3VzU3RhdGVtZW50KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldE5leHRTdGF0ZW1lbnQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDIzMCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsncnVsZXMgbWF0Y2hlZCddID0gZnVuY3Rpb24gKGJsb2NrKSB7ICAgICAgICAgICAgdmFyIHZhbHVlX25hbWUgPSBCbG9ja2x5LkphdmFTY3JpcHQudmFsdWVUb0NvZGUoYmxvY2ssICdOQU1FJywgQmxvY2tseS5KYXZhU2NyaXB0Lk9SREVSX0FUT01JQyk7ICAgICAgICAgICAgICAgICAgICAgICAgdmFyIGNvZGUgPSAncnVsZXMgbWF0Y2hlZCgiJyArIHZhbHVlX25hbWUgKyAnIik7XG4nOyAgICAgICAgICAgIHJldHVybiBjb2RlOyAgICAgICAgfTsgICAgICAgICAgICAgICAgICAgICAgICBCbG9ja2x5LkJsb2Nrc1sncnVsZXMgbWF0Y2hlZCddID0geyAgICAgICAgICAgIGluaXQ6IGZ1bmN0aW9uICgpIHsgICAgICAgICAgICAgICAgdGhpcy5hcHBlbmREdW1teUlucHV0KCkgICAgICAgICAgICAgICAgICAgIC5hcHBlbmRGaWVsZCgicnVsZXMgbWF0Y2hlZCIpOyAgICAgICAgICAgICAgICB0aGlzLnNldE91dHB1dCh0cnVlLCBudWxsKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRDb2xvdXIoMTYwKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRUb29sdGlwKCIiKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRIZWxwVXJsKCIiKTsgICAgICAgICAgICB9ICAgICAgICB9OyAgICAgICAgQmxvY2tseS5KYXZhU2NyaXB0WydydWxlcyBtYXRjaGVkJ10gPSBmdW5jdGlvbiAoYmxvY2spIHsgICAgICAgICAgICB2YXIgY29kZSA9ICdydWxlcyBtYXRjaGVkJzsgICAgICAgICAgICByZXR1cm4gW2NvZGUsIEJsb2NrbHkuSmF2YVNjcmlwdC5PUkRFUl9OT05FXTsgICAgICAgICAgICAgICAgICAgIH07ICAgICAgICAgICAgICAgICAgICAgICAgQmxvY2tseS5CbG9ja3NbJ3J1bGVzIG5vdCBtYXRjaGVkJ10gPSB7ICAgICAgICAgICAgaW5pdDogZnVuY3Rpb24gKCkgeyAgICAgICAgICAgICAgICB0aGlzLmFwcGVuZER1bW15SW5wdXQoKSAgICAgICAgICAgICAgICAgICAgLmFwcGVuZEZpZWxkKCJydWxlcyBub3QgbWF0Y2hlZCIpOyAgICAgICAgICAgICAgICB0aGlzLnNldE91dHB1dCh0cnVlLCBudWxsKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRDb2xvdXIoMTYwKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRUb29sdGlwKCIiKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRIZWxwVXJsKCIiKTsgICAgICAgICAgICB9ICAgICAgICB9OyAgICAgICAgQmxvY2tseS5KYXZhU2NyaXB0WydydWxlcyBub3QgbWF0Y2hlZCddID0gZnVuY3Rpb24gKGJsb2NrKSB7ICAgICAgICAgICAgdmFyIGNvZGUgPSAncnVsZXMgbm90IG1hdGNoZWQnOyAgICAgICAgICAgIHJldHVybiBbY29kZSwgQmxvY2tseS5KYXZhU2NyaXB0Lk9SREVSX05PTkVdOyAgICAgICAgICAgICAgICAgICAgfTsgICAgICAgICAgICAgICAgICAgICAgICBCbG9ja2x5LkJsb2Nrc1sndXNlciByZXF1ZXN0IGFjY2VzcyddID0geyAgICAgICAgICAgICAgICBpbml0OiBmdW5jdGlvbiAoKSB7ICAgICAgICAgICAgICAgIHRoaXMuYXBwZW5kVmFsdWVJbnB1dCgiTkFNRSIpICAgICAgICAgICAgICAgICAgICAuc2V0Q2hlY2sobnVsbCkgICAgICAgICAgICAgICAgICAgIC5hcHBlbmRGaWVsZCgidXNlciByZXF1ZXN0IGFjY2VzcyIpOyAgICAgICAgICAgICAgICB0aGlzLnNldFByZXZpb3VzU3RhdGVtZW50KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldE5leHRTdGF0ZW1lbnQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDIzMCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsndXNlciByZXF1ZXN0IGFjY2VzcyddID0gZnVuY3Rpb24gKGJsb2NrKSB7ICAgICAgICAgICAgdmFyIHZhbHVlX25hbWUgPSBCbG9ja2x5LkphdmFTY3JpcHQudmFsdWVUb0NvZGUoYmxvY2ssICdOQU1FJywgQmxvY2tseS5KYXZhU2NyaXB0Lk9SREVSX0FUT01JQyk7ICAgICAgICAgICAgICAgICAgICAgICAgdmFyIGNvZGUgPSAndXNlciByZXF1ZXN0IGFjY2VzcygiJyArIHZhbHVlX25hbWUgKyAnIik7XG4nOyAgICAgICAgICAgIHJldHVybiBjb2RlOyAgICAgICAgfTsgICAgICAgICAgICAgICAgICAgICAgICBCbG9ja2x5LkJsb2Nrc1sncGVybWlzc2lvbiBwYXNzJ10gPSB7ICAgICAgICAgICAgaW5pdDogZnVuY3Rpb24gKCkgeyAgICAgICAgICAgICAgICB0aGlzLmFwcGVuZER1bW15SW5wdXQoKSAgICAgICAgICAgICAgICAgICAgLmFwcGVuZEZpZWxkKCJwZXJtaXNzaW9uIHBhc3MiKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRPdXRwdXQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDE2MCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsncGVybWlzc2lvbiBwYXNzJ10gPSBmdW5jdGlvbiAoYmxvY2spIHsgICAgICAgICAgICB2YXIgY29kZSA9ICdwZXJtaXNzaW9uIHBhc3MnOyAgICAgICAgICAgIHJldHVybiBbY29kZSwgQmxvY2tseS5KYXZhU2NyaXB0Lk9SREVSX05PTkVdOyAgICAgICAgICAgICAgICAgICAgfTsgICAgICAgICAgICAgICAgICAgICAgICBCbG9ja2x5LkJsb2Nrc1sncGVybWlzc2lvbiBmYWlsJ10gPSB7ICAgICAgICAgICAgaW5pdDogZnVuY3Rpb24gKCkgeyAgICAgICAgICAgICAgICB0aGlzLmFwcGVuZER1bW15SW5wdXQoKSAgICAgICAgICAgICAgICAgICAgLmFwcGVuZEZpZWxkKCJwZXJtaXNzaW9uIGZhaWwiKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRPdXRwdXQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDE2MCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsncGVybWlzc2lvbiBmYWlsJ10gPSBmdW5jdGlvbiAoYmxvY2spIHsgICAgICAgICAgICB2YXIgY29kZSA9ICdwZXJtaXNzaW9uIGZhaWwnOyAgICAgICAgICAgIHJldHVybiBbY29kZSwgQmxvY2tseS5KYXZhU2NyaXB0Lk9SREVSX05PTkVdOyAgICAgICAgICAgICAgICAgICAgfTsgICAgICAgICAgICAgICAgICAgICAgICBCbG9ja2x5LkJsb2Nrc1snZ3JhbnQgdXNlciBhY2Nlc3MnXSA9IHsgICAgICAgICAgICAgICAgaW5pdDogZnVuY3Rpb24gKCkgeyAgICAgICAgICAgICAgICB0aGlzLmFwcGVuZFZhbHVlSW5wdXQoIk5BTUUiKSAgICAgICAgICAgICAgICAgICAgLnNldENoZWNrKG51bGwpICAgICAgICAgICAgICAgICAgICAuYXBwZW5kRmllbGQoImdyYW50IHVzZXIgYWNjZXNzIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0UHJldmlvdXNTdGF0ZW1lbnQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0TmV4dFN0YXRlbWVudCh0cnVlLCBudWxsKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRDb2xvdXIoMjMwKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRUb29sdGlwKCIiKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRIZWxwVXJsKCIiKTsgICAgICAgICAgICB9ICAgICAgICB9OyAgICAgICAgQmxvY2tseS5KYXZhU2NyaXB0WydncmFudCB1c2VyIGFjY2VzcyddID0gZnVuY3Rpb24gKGJsb2NrKSB7ICAgICAgICAgICAgdmFyIHZhbHVlX25hbWUgPSBCbG9ja2x5LkphdmFTY3JpcHQudmFsdWVUb0NvZGUoYmxvY2ssICdOQU1FJywgQmxvY2tseS5KYXZhU2NyaXB0Lk9SREVSX0FUT01JQyk7ICAgICAgICAgICAgICAgICAgICAgICAgdmFyIGNvZGUgPSAnZ3JhbnQgdXNlciBhY2Nlc3MoIicgKyB2YWx1ZV9uYW1lICsgJyIpO1xuJzsgICAgICAgICAgICByZXR1cm4gY29kZTsgICAgICAgIH07ICAgICAgICAgICAgICAgICAgICAgICAgQmxvY2tseS5CbG9ja3NbJ2RlbnkgdXNlciBhY2Nlc3MnXSA9IHsgICAgICAgICAgICAgICAgaW5pdDogZnVuY3Rpb24gKCkgeyAgICAgICAgICAgICAgICB0aGlzLmFwcGVuZFZhbHVlSW5wdXQoIk5BTUUiKSAgICAgICAgICAgICAgICAgICAgLnNldENoZWNrKG51bGwpICAgICAgICAgICAgICAgICAgICAuYXBwZW5kRmllbGQoImRlbnkgdXNlciBhY2Nlc3MiKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRQcmV2aW91c1N0YXRlbWVudCh0cnVlLCBudWxsKTsgICAgICAgICAgICAgICAgdGhpcy5zZXROZXh0U3RhdGVtZW50KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldENvbG91cigyMzApOyAgICAgICAgICAgICAgICB0aGlzLnNldFRvb2x0aXAoIiIpOyAgICAgICAgICAgICAgICB0aGlzLnNldEhlbHBVcmwoIiIpOyAgICAgICAgICAgIH0gICAgICAgIH07ICAgICAgICBCbG9ja2x5LkphdmFTY3JpcHRbJ2RlbnkgdXNlciBhY2Nlc3MnXSA9IGZ1bmN0aW9uIChibG9jaykgeyAgICAgICAgICAgIHZhciB2YWx1ZV9uYW1lID0gQmxvY2tseS5KYXZhU2NyaXB0LnZhbHVlVG9Db2RlKGJsb2NrLCAnTkFNRScsIEJsb2NrbHkuSmF2YVNjcmlwdC5PUkRFUl9BVE9NSUMpOyAgICAgICAgICAgICAgICAgICAgICAgIHZhciBjb2RlID0gJ2RlbnkgdXNlciBhY2Nlc3MoIicgKyB2YWx1ZV9uYW1lICsgJyIpO1xuJzsgICAgICAgICAgICByZXR1cm4gY29kZTsgICAgICAgIH07ICAgICAgICAgICAg";
+        generate();
+        function generate() {
+            // stuff you want to do every second
+            xmlSourceCode = atob(seed);
+            var xmlList = xmlSourceCode.split('&');
+            $("#tutorialName").html(decodeURIComponent(xmlList[0]));
+            $("#tutorialContent").html(decodeURIComponent(xmlList[1]));
+            $("#tutorialTask").html(decodeURIComponent(xmlList[2]));
+            $("#hints").html(xmlList[3]);
+            $("#blockWorkspace").html(xmlList[4]);
+            console.log(xmlList[6]);
+            eval(xmlList[6]);
+
+            var xmlSourceCode = "";
+            var options = {
+                toolbox: toolbox,
+                collapse: false,
+                comments: false,
+                disable: false,
+                maxBlocks: Infinity,
+                trashcan: false,
+                horizontalLayout: true,
+                toolboxPosition: 'start',
+                css: true,
+                media: 'https://blockly-demo.appspot.com/static/media/',
+                rtl: false,
+                scrollbars: false,
+                sounds: true,
+                oneBasedIndex: true,
+                zoom: {
+                    controls: false,
+                    wheel: false,
+                    startScale: 0.7,
+                    maxScale: 3,
+                    minScale: 0.3,
+                    scaleSpeed: 1.2
+                }
+            };
+            var workspace = Blockly.inject('blocklyDiv', options);
+
+            function sleep(delay) {
+                var start = new Date().getTime();
+                while (new Date().getTime() < start + delay);
+            }
+            function myUpdateFunction(event) {
+                var code = Blockly.JavaScript.workspaceToCode(workspace);
+                document.getElementById('textarea').value = code;
+                var targetStr = xmlList[5];
+                if (document.getElementById('textarea').value.replace(/(\r\n|\n|\r)/gm, "").replace(/ /g, '').includes(targetStr)) {
+                    $("#alertButton").click();
+                }
+            }
+            workspace.addChangeListener(myUpdateFunction);
+        }
+    </script>
+</body>

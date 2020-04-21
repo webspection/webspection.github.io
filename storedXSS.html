@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+        <title>WEBSPECTION</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    
+        <meta charset="UTF-8">
+        <meta name="description" content="Clean and responsive administration panel">
+        <meta name="keywords" content="Admin,Panel,HTML,CSS,XML,JavaScript">
+        <meta name="author" content="Erik Campobadal">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+        <link rel="stylesheet" href="css/uikit.min.css" />
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="css/style.css" />
+        <script src="js/uikit.min.js"></script>
+        <script src="js/uikit-icons.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
+        <style>
+            * {
+                font-family: 'Source Code Pro', monospace;
+                font-weight: bolder;
+            }
+        </style>
+    <style>
+        pre.bash {
+            background-color: black;
+            color: white;
+            font-size: medium;
+            font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+            width: 100%;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .message {
+            margin-bottom: 15px;
+        }
+
+        .image {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .user {
+            float: left;
+            font-weight: bold;
+            color: #009;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            margin-left: 30px;
+            font-style: italic;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div uk-sticky class="uk-navbar-container tm-navbar-container uk-active">
+        <div class="uk-container uk-container-expand">
+            <nav uk-navbar>
+                <div class="uk-navbar-left">
+                    <a href="#" class="uk-navbar-item uk-logo">
+                        <b>☬ WEBSPECTION</b>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
+        <div id="descbar" class="uk-card uk-card-default uk-card-body uk-width-1-1@m">
+            <p id="description" style="color: #6e63fe; font-weight: bold;">An attacker crafts a malicious link and sends
+                users an email with that link to a website
+                vulnerable to
+                the XSS exploit</p>
+        </div>
+    </div>
+    <div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
+        <div id="commentBoard" class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+            <b style="color: #6e63fe;">Message Board</b>
+            <div>
+                <div class="message">
+                    <div class="image"><img
+                            src="http://www.gravatar.com/avatar/df125f7b89730a39163bb17c1c18c1d9?s=18&d=identicon&r=PG" />
+                    </div>
+                    <div class="user">Silvertiger</div>
+                    <div style="clear:both;"></div>
+                    <div class="content">Does this work as expected?</div>
+                </div>
+                <div class="message">
+                    <div class="image"><img
+                            src="http://www.gravatar.com/avatar/98d247dcb9453a0d5adc70cd6b3acde9?s=18&d=identicon&r=PG" />
+                    </div>
+                    <div class="user">user2309722</div>
+                    <div style="clear:both;"></div>
+                    <div class="content">Indeed sir it appears to, Thank you</div>
+                </div>
+                <input id="comment" class="uk-input" type="input" placeholder="Comment">
+                <input id="inject" class="uk-button uk-button-primary" type="button" style="background-color: #6e63fe;"
+                    value="Comment" />
+            </div>
+        </div>
+
+        <div id="terminal" class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+            <fieldset class="uk-fieldset">
+                <legend class="uk-legend"><b style="color: #6e63fe;">Server Database</b></legend>
+                <div class="uk-margin">
+                    <pre class="bash">
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 4
+Server version: 5.7.13 MySQL Community Server (GPL)
+                        
+mysql>INSERT INTO commentList VALUES ('<span id="sqlInput"> felix </span>');
+                    </pre>
+                </div>
+                <input id="goToVictim" class="uk-button uk-button-primary" type="button"
+                    style="background-color: #6e63fe;" value="Nexts" />
+            </fieldset>
+        </div>
+
+        <div id="enterPage" class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+            <b style="color: #6e63fe;">Message Board</b>
+            <div>
+                <fieldset class="uk-fieldset">
+                    <h2>Welcome !</h2>
+                    Take a look at our message board, blablabla<br><br>
+                    <input id="goToBoard" class="uk-button uk-button-primary" type="button"
+                        style="background-color: #6e63fe;" value="Enter the Board" />
+                </fieldset>
+            </div>
+        </div>
+
+        <div id="malCommentBoard" class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+            Message Board
+            <div>
+                <div class="message">
+                    <div class="image"><img
+                            src="http://www.gravatar.com/avatar/df125f7b89730a39163bb17c1c18c1d9?s=18&d=identicon&r=PG" />
+                    </div>
+                    <div class="user">Silvertiger</div>
+                    <div style="clear:both;"></div>
+                    <div class="content">Does this work as expected?</div>
+                </div>
+                <div class="message">
+                    <div class="image"><img
+                            src="http://www.gravatar.com/avatar/98d247dcb9453a0d5adc70cd6b3acde9?s=18&d=identicon&r=PG" />
+                    </div>
+                    <div class="user">user2309722</div>
+                    <div style="clear:both;"></div>
+                    <div class="content">Indeed sir it appears to, Thank you</div>
+                </div>
+                <div class="message">
+                    <div class="image"><img
+                            src="http://www.gravatar.com/avatar/df125f7b89730a39163bb17c1c18c1d9?s=18&d=identicon&r=PG" />
+                    </div>
+                    <div class="user">Silvertiger</div>
+                    <div style="clear:both;"></div>
+                    <div class="content" id="malicious"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="" class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+            <img id="z" data-src="images/b1.jpg" width="1800" height="1200" alt="" uk-img>
+        </div>
+    </div>
+    <script>
+        $("#terminal").hide();
+        $("#enterPage").hide();
+        $("#malCommentBoard").hide();
+        $("#terminal").hide();
+
+        $("#inject").click(function () {
+            $("#commentBoard").hide();
+            $("#terminal").show();
+            $("#sqlInput").text($("#comment").val());
+            $("#z").fadeOut('slow');
+            if ($("#comment").val().includes("<script>")) {
+                if ($("#comment").val().includes("alert")) {
+                    $("#z").attr("data-src", "images/d2.jpg").fadeIn('');
+                } else {
+                    $("#z").attr("data-src", "images/b2.jpg").fadeIn('');
+                }
+            } else {
+                $("#z").attr("data-src", "images/c2.jpg").fadeIn('');
+            }
+            $("#description").html("The email claims that the user’s account has been restricted. Instructions are given to go to https://website.com?&lt;script&gt;malicious script&lt;/script&gt; to recover their account.")
+        });
+        $("#goToVictim").click(function () {
+            $("#terminal").hide();
+            $("#enterPage").show();
+            $("#z").fadeOut('');
+            if ($("#comment").val().includes("<script>")) {
+                if ($("#comment").val().includes("alert")) {
+                    $("#z").attr("data-src", "images/d3.jpg").fadeIn('');
+                } else {
+                    $("#z").attr("data-src", "images/b3.jpg").fadeIn('');
+                }
+            } else {
+                $("#z").attr("data-src", "images/c3.jpg").fadeIn('');
+            }
+            $("#description").html("When the user visit website.com, a bogus page appearing exactly like the real login page, where both new and existing passwords are requested. However, a keylogger is injected to the page, hacker can hijack the username and password to gain access.")
+        });
+
+        $("#goToBoard").click(function () {
+            $("#enterPage").hide();
+            $("#malCommentBoard").show();
+            $("#z").fadeOut('');
+            if ($("#comment").val().includes("<script>")) {
+                if ($("#comment").val().includes("alert")) {
+                    $("#z").attr("data-src", "images/d4.jpg").fadeIn('');
+
+                } else {
+                    $("#z").attr("data-src", "images/b4.jpg").fadeIn('');
+                }
+            } else {
+                $("#z").attr("data-src", "images/c4.jpg").fadeIn('');
+            }
+            $("#description").html('Although the website shown you login successfully. The username and password have been sent to the attacker.<br><input id="inject" class="uk-button uk-button-primary" onClick="window.location.reload();" type="button" style="background-color: #6e63fe;"value="Try Again" />');
+            $("#malicious").html($("#comment").val());
+            UIkit.notification({ message: 'Attack success !', status: 'primary' });
+        });
+    </script>
+</body>
+
+</html>

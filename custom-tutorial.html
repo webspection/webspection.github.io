@@ -1,0 +1,375 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Webspection</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/framework.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,500,500i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">
+    <!-- Don't forget to update PWA version (must be same) in pwa.js & manifest.json -->
+    <link rel="manifest" href="_manifest.json" data-pwa-version="set_by_pwa.js">
+    <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+    <style>
+        .message {
+            margin-bottom: 15px;
+        }
+
+        .image {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .user {
+            float: left;
+            font-weight: bold;
+            color: #009;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            margin-left: 30px;
+            font-style: italic;
+        }
+
+        .colored {
+            color: #6e63fe;
+        }
+
+        .small,
+        p {
+            font-size: small;
+        }
+
+        textarea {
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #292d3f;
+            color: white;
+            font-size: small;
+        }
+
+        #blocklyContainer {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+        }
+
+        #blocklyDiv {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body class="theme-light" data-gradient="gradient-1">
+
+    <div id="page">
+
+        <div id="page-preloader">
+            <div class="loader-main">
+                <div class="preload-spinner"></div>
+            </div>
+        </div>
+
+        <div class="header header-fixed header-logo-app">
+            <h1 class="content top-15">ⓦ Webspection</h1>
+            <a href="#" class="back-button header-icon header-icon-1"><i class="fas fa-arrow-left font-13"></i></a>
+            <a href="#" class="header-icon header-icon-2" data-menu="menu-settings"><i
+                    class="fas fa-cog fa-spin font-13"></i></a>
+            <a href="#" class="header-icon header-icon-3" data-toggle-theme><i class="fas fa-moon"></i></a>
+        </div>
+
+        <div class="footer-menu footer-5-icons shadow-huge shadow-huge">
+            <a href=""><i class="fa fa-heart"></i><span></span></a>
+            <a href="page-about.html"><i class="fa fa-gift"></i><span>About</span></a>
+            <a href="index.html" class="active-nav"><i class="fa fa-home"></i><span>Home</span></a>
+            <a href="media.html"><i class="fa fa-image"></i><span>Tutorial</span></a>
+            <a href="page-contact.html"><i class="fa fa-gift"></i><span>Create</span></a>
+            <div class="clear"></div>
+        </div>
+
+        <div class="page-bg">
+            <div></div>
+        </div>
+        <div class="page-content header-clear-large">
+            <button id="savethispage" style="display: none" onclick="saveHTML()"
+                class="bg-green2-light content round-medium shadow-huge button shadow-huge button-s button-circle">Save
+                Your Custom Tutorial</button>
+            <div class="content content-box round-medium shadow-huge">
+                <h4 id="tutorialName" class="bold">Create Custom Tutorial</h4>
+                <p id="tutorialDesc" class="bottom-0">
+                    Create custom blocks, build your toolbox, and configure your web workspace
+                </p>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Your Task</h4>
+                <p id="tutorialInstruction" class="color-white bottom-10">
+                    Create a program to create bulk accounts
+                </p>
+
+            </div>
+
+            <div id="addCustomBlock" class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Add Custom Block</h4>
+                <p class="color-white bottom-10">
+                    Give a name to your custom block
+                </p>
+
+                <input id="blockValue" class="bold search-box search-color round-large" type="mail"
+                    placeholder="name"><br><br>
+                <button onclick="updateWorkspace()" class="button shadow-huge button-s button-circle bg-red2-dark">Add
+                    Variable</button>
+                <button onclick="addAction()" class="button shadow-huge button-s button-circle bg-yellow2-light">Add
+                    Action</button>
+                <h4 class="color-white bold top-10">Add Default Block</h4>
+                <p class="color-white bottom-10">
+                    Add default block to the workspace
+                </p>
+                <button onclick="addWhileLoop()" class="button shadow-huge button-s button-circle bg-pink2-dark">Add
+                    While
+                    Loop</button>
+                <button onclick="addSetter()" class="button shadow-huge button-s button-circle bg-red2-dark">Add
+                    Setter</button>
+                <button onclick="addCompare()" class="button shadow-huge button-s button-circle bg-magenta1-dark">Add
+                    Compare</button>
+                <button onclick="addIfLoop()" class="button shadow-huge button-s button-circle bg-blue2-light">Add
+                    If</button>
+                <button onclick="addNumber()" class="button shadow-huge button-s button-circle bg-green2-light">Add
+                    Number</button>
+                <button onclick="addBoolean()" class="button shadow-huge button-s button-circle bg-yellow2-light">Add
+                    Boolean</button>
+                <button onclick="addOperation()" class="button shadow-huge button-s button-circle bg-brown1-dark">Add
+                    Operation</button>
+                <button onclick="resetWorkspace()"
+                    class="button shadow-huge button-s button-circle bg-gray2-dark">Reset</button>
+            </div>
+
+            <div id="blockWorkspace" class="content content-box round-medium shadow-huge bg-blue2-dark">
+
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 id="compiler" class="color-white bold top-10">Generated JavaScript Solution</h4>
+                <textarea class="content" id="textarea" rows="10" cols="35"></textarea>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 id="compiler" class="color-white bold top-10">Copy the Following Seed</h4>
+                <textarea class="content" id="xmlCode" rows="10" cols="35"></textarea>
+                <button class="button shadow-huge button-m button-circle bg-yellow2-dark"
+                    onclick="copyCode2()">Copy</button>
+                <script>
+                    function copyCode2() {
+                        var copyText = document.getElementById("xmlCode");
+                        copyText.select();
+                        copyText.setSelectionRange(0, 99999);
+                        document.execCommand("copy");
+                    } 
+                </script>
+            </div>
+
+
+            <div class="footer" data-footer-load="menu-footer.html"></div>
+        </div>
+
+        <!-- Page Menus -->
+        <div id="menu-share" class="menu-box menu-box-detached round-medium" data-menu-type="menu-box-bottom"
+            data-menu-height="390" data-menu-load="menu-share.html" data-menu-effect="menu-over">
+        </div>
+
+        <div id="menu-settings" class="menu-box menu-box-gradient" data-menu-type="menu-box-modal"
+            data-menu-height="100%" data-menu-width="100%" data-menu-load="menu-settings.html"
+            data-menu-effect="menu-over">
+        </div>
+
+        <div class="menu-hider"></div>
+    </div>
+
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/plugins.js"></script>
+    <script type="text/javascript" src="scripts/custom.js" async></script>
+
+    <script src="js/blockly_compressed.js"></script>
+    <script src="js/blocks_compressed.js"></script>
+    <script src="js/javascript_compressed.js"></script>
+    <script src="js/en.js"></script>
+    <script>
+
+
+    </script>
+    <script id="lzutf8" src="https://cdn.jsdelivr.net/npm/lzutf8/build/production/lzutf8.js"></script>
+    <script>
+        var request = {};
+        var pairs = location.search.substring(1).split('&');
+        for (var i = 0; i < pairs.length; i++) {
+            var pair = pairs[i].split('=');
+            request[pair[0]] = pair[1];
+        }
+        var tutorName = request["contactNameField"].replace(/\+/g, ' '); //name of the tutorial
+        var tutorDesc = request["contactMessageTextarea"].replace(/\+/g, ' '); //description of the tutorial
+        var tutorInstrcution = request["contactEmailField"].replace(/\+/g, ' '); //instruction for the tutorial
+        var tutorHints = request["hints"].replace(/\+/g, ' ');
+        document.getElementById("tutorialName").innerHTML = "Custom Tutorial - " + tutorName;
+        document.getElementById("tutorialDesc").innerHTML = tutorDesc;
+        document.getElementById("tutorialInstruction").innerHTML = tutorInstrcution;
+
+        var blockScriptStart = `
+                <h4 id="solution" class="color-white bold top-10">Create Your Solution</h4>
+                <section id="blocklyContainer">
+                    <div id="blocklyDiv" style="width: 100%"></div>
+                    <xml id="toolbox" style="display: none">
+        `;//the string to generate the blocks
+        var blockScriptEnd = `
+                    </xml>
+                </section>
+        `;
+        var defaultScript = "Blockly.Blocks['print'] = {\n            init: function () {\n                this.appendValueInput(\"NAME\")\n                    .setCheck(null)\n                    .appendField(\"print\");\n                this.setPreviousStatement(true, null);\n                this.setNextStatement(true, null);\n                this.setColour(230);\n                this.setTooltip(\"\");\n                this.setHelpUrl(\"\");\n            }\n        };\n        Blockly.JavaScript['print'] = function (block) {\n            var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);\n            // TODO: Assemble JavaScript into code variable.\n            var code = 'console.log(\"' + value_name + '\");\\n';\n            return code;\n        };\n        Blockly.Blocks['create_account'] = {\n            init: function () {\n                this.appendDummyInput()\n                    .appendField(\"create account\");\n                this.setPreviousStatement(true, null);\n                this.setColour(65);\n                this.setTooltip(\"\");\n                this.setHelpUrl(\"\");\n            }\n        };\n        Blockly.JavaScript['create_account'] = function (block) {\n            // TODO: Assemble JavaScript into code variable.\n            var code = '$(\"#register\").click();\\n';\n            return code;\n        };\n        Blockly.Blocks['set_value'] = {\n            init: function () {\n                this.appendValueInput(\"variable\")\n                    .setCheck(null)\n                    .appendField(\"set\");\n                this.appendValueInput(\"value\")\n                    .setCheck(null)\n                    .appendField(\"=\");\n                this.setInputsInline(true);\n                this.setPreviousStatement(true, null);\n                this.setNextStatement(true, null);\n                this.setColour(210);\n                this.setTooltip(\"\");\n                this.setHelpUrl(\"\");\n            }\n        };\n        Blockly.JavaScript['set_value'] = function (block) {\n            var value_variable = Blockly.JavaScript.valueToCode(block, 'variable', Blockly.JavaScript.ORDER_ATOMIC);\n            var value_value = Blockly.JavaScript.valueToCode(block, 'value', Blockly.JavaScript.ORDER_ATOMIC);\n            // TODO: Assemble JavaScript into code variable.\n            var code = '$(\"' + value_variable + '\").val(\"' + value_value + '\")\\n';\n            return code;\n        };\n        Blockly.Blocks['password'] = {\n            init: function () {\n                this.appendDummyInput()\n                    .appendField(\"password\");\n                this.setOutput(true, null);\n                this.setColour(160);\n                this.setTooltip(\"\");\n                this.setHelpUrl(\"\");\n            }\n        };\n        Blockly.JavaScript['password'] = function (block) {\n            // TODO: Assemble JavaScript into code variable.\n            var code = '#password';\n            // TODO: Change ORDER_NONE to the correct strength.\n            return [code, Blockly.JavaScript.ORDER_NONE];\n        };\n        Blockly.Blocks['randomstring'] = {\n            init: function () {\n                this.appendDummyInput()\n                    .appendField(\"random string\");\n                this.setInputsInline(false);\n                this.setOutput(true, null);\n                this.setColour(290);\n                this.setTooltip(\"\");\n                this.setHelpUrl(\"\");\n            }\n        };\n        Blockly.JavaScript['randomstring'] = function (block) {\n            // TODO: Assemble JavaScript into code variable.\n            var code = 'Math.random().toString(36).substring(7);';\n            // TODO: Change ORDER_NONE to the correct strength.\n            return [code, Blockly.JavaScript.ORDER_NONE];\n        };\n        Blockly.Blocks['username'] = {\n            init: function () {\n                this.appendDummyInput()\n                    .appendField(\"username\");\n                this.setOutput(true, null);\n                this.setColour(160);\n                this.setTooltip(\"\");\n                this.setHelpUrl(\"\");\n            }\n        };\n        Blockly.JavaScript['username'] = function (block) {\n            // TODO: Assemble JavaScript into code variable.\n            var code = `\nBlockly.Blocks['username'] = {\n    init: function () {\n        this.appendDummyInput()\n            .appendField(\"username\");\n        this.setOutput(true, null);\n        this.setColour(160);\n        this.setTooltip(\"\");\n        this.setHelpUrl(\"\");\n    }\n    };\nBlockly.JavaScript['username'] = function (block) {\n    // TODO: Assemble JavaScript into code variable.\n    var code = '#username';\n    // TODO: Change ORDER_NONE to the correct strength.\n    return [code, Blockly.JavaScript.ORDER_NONE];\n};\n            `;\n            // TODO: Change ORDER_NONE to the correct strength.\n            return [code, Blockly.JavaScript.ORDER_NONE];\n        };\n        Blockly.Blocks['string_length'] = {\n            init: function () {\n                this.appendValueInput('VALUE')\n                    .setCheck('String')\n                    .appendField('length of');\n                this.setOutput(true, 'Number');\n                this.setColour(160);\n                this.setTooltip('Returns number of letters in the provided text.');\n                this.setHelpUrl('http://www.w3schools.com/jsref/jsref_length_string.asp');\n            }\n        };\n        Blockly.JavaScript['string_length'] = function (block) {\n            // String or array length.\n            var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',\n                Blockly.JavaScript.ORDER_FUNCTION_CALL) || '\\'\\'';\n            return [argument0 + '.length', Blockly.JavaScript.ORDER_MEMBER];\n        };\n"
+        var toolboxScript = "var options = {\n            toolbox: toolbox,\n            collapse: false,\n            comments: false,\n            disable: false,\n            maxBlocks: Infinity,\n            trashcan: false,\n            horizontalLayout: true,\n            toolboxPosition: \'start\',\n            css: true,\n            media: \'https://blockly-demo.appspot.com/static/media/\',\n            rtl: false,\n            scrollbars: false,\n            sounds: true,\n            oneBasedIndex: true,\n            zoom: {\n                controls: false,\n                wheel: false,\n                startScale: 0.7,\n                maxScale: 3,\n                minScale: 0.3,\n                scaleSpeed: 1.2\n            }\n        };\n        var workspace = Blockly.inject(\'blocklyDiv\', options);\n\n        function sleep(delay) {\n            var start = new Date().getTime();\n            while (new Date().getTime() < start + delay);\n        }\n        function myUpdateFunction(event) {\n            var code = Blockly.JavaScript.workspaceToCode(workspace);\n            document.getElementById(\'textarea\').value = code;\n        }\n        workspace.addChangeListener(myUpdateFunction);"
+        function addForLoop() {//update for loop
+            blockScriptStart += `<block type="controls_repeat_ext"></block>`;
+            document.getElementById("blockWorkspace").innerHTML = blockScriptStart + blockScriptEnd;
+            eval(defaultScript + toolboxScript);
+        }
+
+        function addSetter() { //set variable block
+            blockScriptStart += `<block type="set_value"></block>`;
+            document.getElementById("blockWorkspace").innerHTML = blockScriptStart + blockScriptEnd;
+            eval(defaultScript + toolboxScript);
+        }
+
+        function addNumber() { //numerical value
+            blockScriptStart += `<block type="math_number"></block>`;
+            document.getElementById("blockWorkspace").innerHTML = blockScriptStart + blockScriptEnd;
+            eval(defaultScript + toolboxScript);
+        }
+        function addWhileLoop() {
+            blockScriptStart += `<block type="controls_whileUntil"></block>`;
+            document.getElementById("blockWorkspace").innerHTML = blockScriptStart + blockScriptEnd;
+            eval(defaultScript + toolboxScript);
+        }
+        function addCompare() {
+            blockScriptStart += `<block type="logic_compare"></block>`;
+            document.getElementById("blockWorkspace").innerHTML = blockScriptStart + blockScriptEnd;
+            eval(defaultScript + toolboxScript);
+        }
+        function addIfLoop() {
+            blockScriptStart += `<block type="controls_if"></block>`;
+            document.getElementById("blockWorkspace").innerHTML = blockScriptStart + blockScriptEnd;
+            eval(defaultScript + toolboxScript);
+        }
+        function addBoolean() {
+            blockScriptStart += `<block type="logic_boolean"></block>`;
+            document.getElementById("blockWorkspace").innerHTML = blockScriptStart + blockScriptEnd;
+            eval(defaultScript + toolboxScript);
+        }
+        function addOperation() {
+            blockScriptStart += `<block type="logic_operation"></block>`;
+            document.getElementById("blockWorkspace").innerHTML = blockScriptStart + blockScriptEnd;
+            eval(defaultScript + toolboxScript);
+        }
+        function resetWorkspace() { //reset the workspace
+            blockScriptStart = `
+                <h4 class="color-white bold top-10">Block Template</h4>
+                <section id="blocklyContainer">
+                    <div id="blocklyDiv" style="width: 100%"></div>
+                    <xml id="toolbox" style="display: none">
+        `;//the string to generate the blocks
+            blockScriptEnd = `
+                    </xml>
+                </section>
+        `;
+            document.getElementById("blockWorkspace").innerHTML = blockScriptStart + blockScriptEnd;
+        }
+        var customBlock = "";
+        function updateWorkspace() {
+            var newBlockName = document.getElementById("blockValue").value;
+            var newBlock = `<block type="` + newBlockName + `"></block>`;
+            blockScriptStart += newBlock;
+            document.getElementById("blockWorkspace").innerHTML = blockScriptStart + blockScriptEnd;
+            var newBlockScript = `
+            Blockly.Blocks['`+ newBlockName + `'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("`+ newBlockName + `");
+                this.setOutput(true, null);
+                this.setColour(160);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['`+ newBlockName + `'] = function (block) {
+            var code = '`+ newBlockName + `';
+            return [code, Blockly.JavaScript.ORDER_NONE];
+            
+        };
+            `
+            customBlock += newBlockScript;
+            eval(newBlockScript + defaultScript + toolboxScript);
+        }
+
+        function addAction() {
+            var newBlockName = document.getElementById("blockValue").value;
+            var newBlock = `<block type="` + newBlockName + `"></block>`;
+            blockScriptStart += newBlock;
+            document.getElementById("blockWorkspace").innerHTML = blockScriptStart + blockScriptEnd;
+            var newBlockScript = `
+            Blockly.Blocks['`+ newBlockName + `'] = {
+                init: function () {
+                this.appendValueInput("NAME")
+                    .setCheck(null)
+                    .appendField("`+ newBlockName + `");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(230);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['`+ newBlockName + `'] = function (block) {
+            var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);\n            \n            var code = '`+ newBlockName + `(\"' + value_name + '\");\\n';\n            return code;
+        };
+            `
+            /*
+                                    <block type="controls_repeat_ext"></block>
+                        <block type="math_number"></block>
+                        <block type="set_value"></block>
+                        <block type="randomstring"></block>
+                        <block type="username"></block>
+                        <block type="password"></block>
+                        <block type="create_account"></block>
+                        <block type="print"></block>
+            */
+            customBlock += newBlockScript;
+            eval(newBlockScript + defaultScript + toolboxScript);
+        }
+
+        $(function () {
+            setInterval(oneSecondFunction, 1000);
+        });
+
+        function oneSecondFunction() {
+            // stuff you want to do every second
+            var solutionCode = document.getElementById('textarea').value.replace(/(\r\n|\n|\r)/gm, "").replace(/ /g, '')
+            var xmlString = (tutorName + "&" + tutorDesc + "&" + tutorInstrcution + "&" + tutorHints + "&" + blockScriptStart + blockScriptEnd + "&" + solutionCode + "&" + customBlock).replace(/(\r\n|\n|\r)/gm, "");
+            //var output = input, [options]);
+            document.getElementById('xmlCode').value = btoa(xmlString)
+            //document.getElementById('xmlCode').value = LZUTF8.compress(xmlString,options="Base64");
+
+            //
+        }
+
+    </script>
+</body>

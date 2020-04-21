@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>Webspection</title>
+<link rel="stylesheet" type="text/css" href="styles/style.css">
+<link rel="stylesheet" type="text/css" href="styles/framework.css">
+<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,500,500i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">  
+<!-- Don't forget to update PWA version (must be same) in pwa.js & manifest.json -->
+<link rel="manifest" href="_manifest.json" data-pwa-version="set_by_pwa.js">
+<link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+</head>
+    
+<body class="theme-light" data-gradient="gradient-1">
+        
+<div id="page">
+    
+    <div id="page-preloader">
+        <div class="loader-main"><div class="preload-spinner"></div></div>
+    </div>
+    
+	<div class="header header-fixed header-logo-app">
+        <h1 class="content top-15">ⓦ Webspection</h1>
+		<a href="#" class="header-icon header-icon-1" data-menu="menu-navigation"><i class="fas fa-bars"></i></a>
+		<a href="#" class="header-icon header-icon-2" data-menu="menu-updates"><i class="fas fa-bell"></i></a>
+		<a href="#" class="header-icon header-icon-3" data-menu="menu-settings"><i class="fas fa-cog fa-spin font-13"></i></a>
+		<a href="#" class="header-icon header-icon-4" data-toggle-theme><i class="fas fa-moon"></i></a>
+	</div>
+    
+    <div class="footer-menu footer-5-icons shadow-huge shadow-huge">
+        <a href="login"><i class="fa fa-heart"></i><span>Login</span></a>
+        <a href="page-about.html"><i class="fa fa-gift"></i><span>About</span></a>
+        <a href="index.html" class="active-nav"><i class="fa fa-home"></i><span>Home</span></a>
+        <a href="media.html"><i class="fa fa-image"></i><span>Tutorial</span></a>
+        <a href="page-contact.html"><i class="fa fa-gift"></i><span>Create</span></a>
+        <div class="clear"></div>
+    </div>
+
+                  
+    <div class="page-bg"><div></div></div>
+    <div class="page-content header-clear-large">   
+        <div class="content content-box content-box-full-bottom round-medium shadow-huge">
+            
+            <h1 class="center-text">Implement Custom Tutorial</h1>
+            <p class="boxed-text-large">
+                You can implement your custom tutorial here
+            </p>
+            <button onclick="window.open('tutorial-test.html','_self')" class="button bg-green1-dark button-m button-full round-medium shadow-huge bottom-10" value="Next Step" data-formId="contactForm">Continue</button>
+        </div>  
+        <div class="content content-box content-box-full-bottom round-medium shadow-huge">
+            
+            <h1 class="center-text">Create Your Custom Tutorial</h1>
+            <p class="boxed-text-large">
+                Your custom tutorial template is like any other tutorial in this learning platform. You can add any block, content, or code in this file
+            </p>
+            <div class="contact-form">
+                <div class="formSuccessMessageWrap disabled" id="formSuccessMessageWrap">
+                    <div class="bg-green1-dark round-medium shaow-huge">
+                        <h1 class="color-white center-text top-30"><i class="fa fa-check-circle fa-3x shadow-small round-image"></i></h1>
+                        <h2 class="color-white bold center-text top-20">Message Sent</h2>
+                        <p class="color-white under-heading boxed-text-large bottom-30">We'll get back to you shortly.</p>
+                    </div>
+                </div>
+                <form action="custom-tutorial.html" method="get" class="contactForm" id="contactForm">
+                    <fieldset>
+                        <div class="form-field">
+                            <label class="contactNameField color-theme" for="contactNameField">Name of Your Tutorial<span>(required)</span></label>
+                            <input type="text" name="contactNameField" value="" class="round-small" id="contactNameField" />
+                        </div>
+                        <div class="form-field">
+                            <label class="contactMessageTextarea color-theme" for="contactMessageTextarea">Description: <span>(required)</span></label>
+                            <textarea name="contactMessageTextarea" class="round-small" id="contactMessageTextarea"></textarea>
+                        </div>
+                        <div class="form-field">
+                            <label class="contactEmailField color-theme" for="contactEmailField">Tutorial Instructions: <span>(required)</span></label>
+                            <input type="text" name="contactEmailField" value="" class="round-small" id="contactEmailField" />
+                        </div>
+                        <div class="form-field">
+                            <label class="contactEmailField color-theme" for="contactEmailField">Hints: <span>(required)</span></label>
+                            <input type="text" name="hints" value="" class="round-small" id="hints" />
+                        </div>
+                        <div class="form-button">
+                            <input type="submit" class="button bg-green1-dark button-m button-full round-medium shadow-huge bottom-10" value="Next Step" data-formId="contactForm" />
+                        </div>
+                    </fieldset>
+                </form>			
+            </div>
+        </div>
+
+        <div class="footer" data-footer-load="menu-footer.html"></div>
+         
+        
+    </div>      
+
+    <div id="menu-navigation"
+         class="menu-box menu-box-gradient menu-transparent"
+         data-menu-type="menu-box-left"
+         data-menu-width="260"
+         data-menu-active="nav-galleries"
+         data-menu-load="menu-navigation.html"
+         data-menu-effect="menu-parallax">
+    </div>  
+
+    
+    <div id="menu-share"
+         class="menu-box menu-box-detached round-medium"
+         data-menu-type="menu-box-bottom"
+         data-menu-height="390"
+         data-menu-load="menu-share.html"
+         data-menu-effect="menu-over">
+    </div>   
+    
+    <div id="menu-settings"
+         class="menu-box menu-box-gradient"
+         data-menu-type="menu-box-modal"
+         data-menu-height="100%"
+         data-menu-width="100%"
+         data-menu-load="menu-settings.html"
+         data-menu-effect="menu-over">
+    </div>  
+        
+        
+    <div class="menu-hider"></div>
+</div>
+
+<script type="text/javascript" src="scripts/jquery.js"></script>
+<script type="text/javascript" src="scripts/plugins.js"></script>
+<script type="text/javascript" src="scripts/custom.js" async></script>
+</body>
+
+    

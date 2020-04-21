@@ -1,0 +1,495 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Webspection</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/framework.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,500,500i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">
+    <!-- Don't forget to update PWA version (must be same) in pwa.js & manifest.json -->
+    <link rel="manifest" href="_manifest.json" data-pwa-version="set_by_pwa.js">
+    <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+    <style>
+        .message {
+            margin-bottom: 15px;
+        }
+
+        .image {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .user {
+            float: left;
+            font-weight: bold;
+            color: #009;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            margin-left: 30px;
+            font-style: italic;
+        }
+
+        .colored {
+            color: #6e63fe;
+        }
+
+        .small,
+        p {
+            font-size: small;
+        }
+
+        textarea {
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #292d3f;
+            color: white;
+            font-size: small;
+        }
+
+        #blocklyContainer {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+        }
+
+        #blocklyDiv {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        p.bash {
+            background-color: black;
+            color: #4AF626;
+            font-size: small;
+            width: 100%;
+            display: inline-block;
+        }
+
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body class="theme-light" data-gradient="gradient-1">
+
+    <div id="page">
+
+        <div id="page-preloader">
+            <div class="loader-main">
+                <div class="preload-spinner"></div>
+            </div>
+        </div>
+
+        <div class="header header-fixed header-logo-app">
+            <h1 class="content top-15">ⓦ Webspection</h1>
+            <a href="#" class="back-button header-icon header-icon-1"><i class="fas fa-arrow-left font-13"></i></a>
+            <a href="#" class="header-icon header-icon-2" data-menu="menu-settings"><i
+                    class="fas fa-cog fa-spin font-13"></i></a>
+            <a href="#" class="header-icon header-icon-3" data-toggle-theme><i class="fas fa-moon"></i></a>
+        </div>
+
+        <div class="footer-menu footer-5-icons shadow-huge shadow-huge">
+            <a href=""><i class="fa fa-heart"></i><span></span></a>
+            <a href="page-about.html"><i class="fa fa-gift"></i><span>About</span></a>
+            <a href="index.html" class="active-nav"><i class="fa fa-home"></i><span>Home</span></a>
+            <a href="media.html"><i class="fa fa-image"></i><span>Tutorial</span></a>
+            <a href="page-contact.html"><i class="fa fa-gift"></i><span>Create</span></a>
+            <div class="clear"></div>
+        </div>
+
+        <div class="page-bg">
+            <div></div>
+        </div>
+        <div class="page-content header-clear-large">
+
+
+            <div class="content content-box round-medium shadow-huge">
+                <h4 class="bold">Phishing Attack (Create Spam Accounts)</h4>
+
+                <div style="width: 50%; float:left">
+                    <p class="bottom-0">
+                        Spam accounts are created by spammers and cybercriminals to run phishing scams to obtain personal information such as passwords, credit card information and more
+                    </p>
+                </div>
+
+                <div style="width: 40%; float:right">
+                    <img style="background-color: white;" src="images/phishing.PNG" />
+                </div>
+
+            </div>
+
+            <div class="content content-box round-medium shadow-huge">
+                <h4 class="bold">What is spam account?</h4>
+                <p class="bottom-0">
+                    Spam accounts means accounts that are created for misuse. Attacker uses the application's account
+                    sign-up function to create a large amount of accounts for further misuse such as fraduing or
+                    spreading malware
+                </p>
+                <br>
+                <h4 class="bold">What is the danger of spam account?</h4>
+                <p class="bottom-0">The accounts are subsequently misused for generating content spam, laundering cash
+                    and
+                    goods, spreading malware, a ecting reputation, causing mischief, and skewing search engine
+                    optimisation
+                    (SEO), reviews and surveys
+                </p>
+            </div>
+            <script>
+                function openInNewTab(url) {
+                    var win = window.open(url);
+                    win.focus();
+                }
+            </script>
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Your Task</h4>
+                <p class="color-white bottom-10">
+                    Create a program to create spam accounts for phishing attack
+                </p>
+                <button onclick="openInNewTab('how-to-play.html');"
+                    class="button shadow-huge button-s button-circle bg-yellow2-dark">How to play?</button>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <div style="width: 50%; float:left">
+                    <h4 class="color-white bold top-10">Hints</h4>
+                    <p style="display: none" id="hints" class="color-white bottom-10">
+                        You can use a loop to create multiple accounts</p>
+                    <p id="hint" class="color-white bottom-10">
+                        You can use a loop to create multiple accounts</p>
+                </div>
+
+                <div style="width: 50%; float:right">
+                    <h4 class="color-white bold top-10">Visualization</h4>
+                    <img style="background-color: white;" id="my_image" src="images/sa1.png" />
+                </div>
+
+
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Code Playground</h4>
+                <section id="blocklyContainer">
+                    <div id="blocklyDiv" style="width: 100%"></div>
+                    <xml id="toolbox" style="display: none">
+                        <block type="controls_repeat_ext"></block>
+                        <block type="math_number"></block>
+                        <block type="set_value"></block>
+                        <block type="randomstring"></block>
+                        <block type="username"></block>
+                        <block type="password"></block>
+                        <block type="create_account"></block>
+                        <block type="print"></block>
+                    </xml>
+                </section>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Compiler</h4>
+                <textarea class="content" id="textarea" rows="10" cols="35"></textarea>
+            </div>
+
+
+
+
+            <div class="footer" data-footer-load="menu-footer.html"></div>
+        </div>
+
+        <!-- Page Menus -->
+        <div id="menu-share" class="menu-box menu-box-detached round-medium" data-menu-type="menu-box-bottom"
+            data-menu-height="390" data-menu-load="menu-share.html" data-menu-effect="menu-over">
+        </div>
+
+        <div id="menu-settings" class="menu-box menu-box-gradient" data-menu-type="menu-box-modal"
+            data-menu-height="100%" data-menu-width="100%" data-menu-load="menu-settings.html"
+            data-menu-effect="menu-over">
+        </div>
+
+        <div class="menu-hider"></div>
+    </div>
+
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/plugins.js"></script>
+    <script type="text/javascript" src="scripts/custom.js" async></script>
+
+    <script src="js/blockly_compressed.js"></script>
+    <script src="js/blocks_compressed.js"></script>
+    <script src="js/javascript_compressed.js"></script>
+    <script src="js/en.js"></script>
+    <script>
+        Blockly.Blocks['print'] = {
+            init: function () {
+                this.appendValueInput("NAME")
+                    .setCheck(null)
+                    .appendField("print");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(230);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['print'] = function (block) {
+            var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+            // TODO: Assemble JavaScript into code variable.
+            var code = 'console.log("' + value_name + '");\n';
+            return code;
+        };
+        Blockly.Blocks['create_account'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("create account");
+                this.setPreviousStatement(true, null);
+                this.setColour(65);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['create_account'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = '$("#register").click();\n';
+            return code;
+        };
+        Blockly.Blocks['set_value'] = {
+            init: function () {
+                this.appendValueInput("variable")
+                    .setCheck(null)
+                    .appendField("set");
+                this.appendValueInput("value")
+                    .setCheck(null)
+                    .appendField("=");
+                this.setInputsInline(true);
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(210);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['set_value'] = function (block) {
+            var value_variable = Blockly.JavaScript.valueToCode(block, 'variable', Blockly.JavaScript.ORDER_ATOMIC);
+            var value_value = Blockly.JavaScript.valueToCode(block, 'value', Blockly.JavaScript.ORDER_ATOMIC);
+            // TODO: Assemble JavaScript into code variable.
+            var code = '$("' + value_variable + '").val("' + value_value + '")\n';
+            return code;
+        };
+        Blockly.Blocks['password'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("password");
+                this.setOutput(true, null);
+                this.setColour(160);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['password'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = '#password';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+        Blockly.Blocks['randomstring'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("random string");
+                this.setInputsInline(false);
+                this.setOutput(true, null);
+                this.setColour(290);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['randomstring'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = 'Math.random().toString(36).substring(7);';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+        Blockly.Blocks['username'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("username");
+                this.setOutput(true, null);
+                this.setColour(160);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['username'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = '#username';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+        Blockly.Blocks['string_length'] = {
+            init: function () {
+                this.appendValueInput('VALUE')
+                    .setCheck('String')
+                    .appendField('length of');
+                this.setOutput(true, 'Number');
+                this.setColour(160);
+                this.setTooltip('Returns number of letters in the provided text.');
+                this.setHelpUrl('http://www.w3schools.com/jsref/jsref_length_string.asp');
+            }
+        };
+        Blockly.JavaScript['string_length'] = function (block) {
+            // String or array length.
+            var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
+                Blockly.JavaScript.ORDER_FUNCTION_CALL) || '\'\'';
+            return [argument0 + '.length', Blockly.JavaScript.ORDER_MEMBER];
+        };
+
+
+    </script>
+    <script>
+        var options = {
+            toolbox: toolbox,
+            collapse: false,
+            comments: false,
+            disable: false,
+            maxBlocks: Infinity,
+            trashcan: false,
+            horizontalLayout: true,
+            toolboxPosition: 'start',
+            css: true,
+            media: 'https://blockly-demo.appspot.com/static/media/',
+            rtl: false,
+            scrollbars: false,
+            sounds: true,
+            oneBasedIndex: true,
+            zoom: {
+                controls: false,
+                wheel: false,
+                startScale: 0.7,
+                maxScale: 3,
+                minScale: 0.3,
+                scaleSpeed: 1.2
+            }
+        };
+        var workspace = Blockly.inject('blocklyDiv', options);
+
+        function sleep(delay) {
+            var start = new Date().getTime();
+            while (new Date().getTime() < start + delay);
+        }
+        function myUpdateFunction(event) {
+            var code = Blockly.JavaScript.workspaceToCode(workspace);
+            document.getElementById('textarea').value = code;
+            var targetStr = "count++){$(\"(#username)\").val(\"(Math.random().toString(36).substring(7);)\")$(\"(#password)\").val(\"(Math.random().toString(36).substring(7);)\")console.log(\"(#username)\");console.log(\"(#password)\");$(\"#register\").click();}";
+            if (document.getElementById('textarea').value.replace(/(\r\n|\n|\r)/gm, "").replace(/ /g, '').includes(targetStr)) {
+                window.location.href = "automated-threat-2.html";
+            }
+        }
+        workspace.addChangeListener(myUpdateFunction);
+
+        $(function () {
+            setInterval(detectTextArea, 1000);
+        });
+
+        function found(lookupValue, testString) {
+            return testString.indexOf(lookupValue) !== -1;
+        }
+
+        function detectTextArea() {
+            var code = document.getElementById('textarea').value;
+
+            var hintstr = "";
+            var flag = 0;
+            var bashValue = `hacker@ubuntu:~$<br>brute force password...<br>
+            `;
+
+            //template
+            /*
+            wrong
+            if (!found("", code)) {
+                hintstr += "<b><span style=\"color:red\">• </span></b><br>";
+            }
+
+            correct
+            if (!found("", code)) {
+                hintstr += "<b><span style=\"color:lightgreen\">• </span></b><br>";
+            }
+            */
+
+            var username = false;
+            var password = false;
+            var random = false;
+
+            //loop
+            if (!found("for (var count = 0; count < 0; count++)", code)) {
+                hintstr += "<b><span style=\"color:red\">• Try to add a loop</span></b><br>";
+            } else {
+                hintstr += "<b><span style=\"color:lightgreen\">• Correct! The loop is running</span></b><br>";
+            }
+            //set username
+            if (!found("$(\"(#username)\").val", code)) {
+                hintstr += "<b><span style=\"color:red\">• The username is not set yet</span></b><br>";
+            } else {
+                hintstr += "<b><span style=\"color:lightgreen\">• Correct! The username is set</span></b><br>";
+                username = true;
+            }
+            //password
+            if (!found("$(\"(#password)\").val", code)) {
+                hintstr += "<b><span style=\"color:red\">• The password is not set yet</span></b><br>";
+            } else {
+                hintstr += "<b><span style=\"color:lightgreen\">• Correct! The password is set</span></b><br>";
+                password = true;
+            }
+            if (!found("random()", code)) {
+                hintstr += "<b><span style=\"color:red\">• Try to add some randomness to the username and password</span></b><br>";
+            } else {
+                hintstr += "<b><span style=\"color:lightgreen\">• Correct! The username and password should be random</span></b><br>";
+                random = true;
+            }
+            if (!found("#register", code)) {
+                hintstr += "<b><span style=\"color:red\">• The account cannot be created</span></b><br>";
+            } else {
+                hintstr += "<b><span style=\"color:lightgreen\">• Correct! The account can now be created</span></b><br>";
+            }
+            if (!found("console.log", code)) {
+                hintstr += "<b><span style=\"color:red\">• The credentials are not showing</span></b><br>";
+            } else {
+                hintstr += "<b><span style=\"color:lightgreen\">• Correct! The credentials are showing</span></b><br>";
+            }
+
+            if (random) {
+                if (username && password) {
+                    $("#my_image").attr("src", "images/sa4.png");
+                }
+                else if (username) {
+                    $("#my_image").attr("src", "images/sa2.png");
+                }
+                else if (password) {
+                    $("#my_image").attr("src", "images/sa3.png");
+                }
+            } else {
+                $("#my_image").attr("src", "images/sa1.png");
+            }
+
+            $("#hint").html(hintstr);
+            $(".bash").html(bashValue);
+        }
+        function openInNewTab(url) {
+            var win = window.open(url, '_blank');
+            win.focus();
+        }
+    </script>
+</body>

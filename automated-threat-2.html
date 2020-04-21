@@ -1,0 +1,242 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Kolor Mobile</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/framework.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,500,500i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">
+    <!-- Don't forget to update PWA version (must be same) in pwa.js & manifest.json -->
+    <link rel="manifest" href="_manifest.json" data-pwa-version="set_by_pwa.js">
+    <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+    <style>
+        .window {
+            border-radius: 3px;
+            background: #222;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+            margin: 0 auto;
+            width: 90%;
+
+            &:before {
+                content: ' ';
+                display: block;
+                height: 48px;
+                background: #C6C6C6;
+            }
+
+            &:after {
+                content: '. . .';
+                position: absolute;
+                left: 12px;
+                right: 0;
+                top: -3px;
+                font-family: "Times New Roman", Times, serif;
+                font-size: 96px;
+                color: #fff;
+                line-height: 0;
+                letter-spacing: -12px;
+            }
+        }
+
+        .terminal {
+            margin: 20px;
+            font-family: monospace;
+            font-size: 16px;
+            color: #22da26;
+
+            .command {
+                width: 0%;
+                white-space: nowrap;
+                overflow: hidden;
+                animation: write-command 5s both;
+
+                &:before {
+                    content: '$ ';
+                    color: #22da26;
+                }
+            }
+
+            .log {
+                white-space: nowrap;
+                overflow: hidden;
+                animation: write-log 5s both;
+            }
+
+            p:nth-child(2) {
+                animation-delay: 2s;
+            }
+
+            p:nth-child(3) {
+                animation-delay: 8s;
+            }
+        }
+
+        @keyframes write-command {
+            0% {
+                width: 0%;
+            }
+
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        @keyframes write-log {
+            0% {
+                height: 0;
+            }
+
+            16% {
+                height: 0;
+            }
+
+            17% {
+                height: 18px;
+            }
+
+            33% {
+                height: 18px;
+            }
+
+            34% {
+                height: 37px;
+            }
+
+            51% {
+                height: 37px;
+            }
+
+            52% {
+                height: 55px;
+            }
+
+            69% {
+                height: 55px;
+            }
+
+            70% {
+                height: 74px;
+            }
+
+            87% {
+                height: 74px;
+            }
+
+            88% {
+                height: 92px;
+            }
+
+            88% {
+                height: 92px;
+            }
+
+            99% {
+                height: 92px;
+            }
+
+            100% {
+                height: 110px;
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-light" data-gradient="gradient-1">
+
+    <div id="page">
+
+        <div id="page-preloader">
+            <div class="loader-main">
+                <div class="preload-spinner"></div>
+            </div>
+        </div>
+
+        <div class="header header-fixed header-logo-app">
+            <a href="#" class="back-button header-logo"></a>
+            <a href="#" class="back-button header-icon header-icon-1"><i class="fas fa-arrow-left font-13"></i></a>
+            <a href="#" class="header-icon header-icon-2" data-menu="menu-settings"><i
+                    class="fas fa-cog fa-spin font-13"></i></a>
+            <a href="#" class="header-icon header-icon-3" data-toggle-theme><i class="fas fa-moon"></i></a>
+        </div>
+
+        <div class="footer-menu footer-5-icons shadow-huge shadow-huge">
+            <a href="login"><i class="fa fa-heart"></i><span>Login</span></a>
+            <a href="page-about.html"><i class="fa fa-gift"></i><span>About</span></a>
+            <a href="index.html" class="active-nav"><i class="fa fa-home"></i><span>Home</span></a>
+            <a href="media.html"><i class="fa fa-image"></i><span>Tutorial</span></a>
+            <a href="page-contact.html"><i class="fa fa-gift"></i><span>Create</span></a>
+            <div class="clear"></div>
+        </div>
+
+        <div class="page-bg">
+            <div></div>
+        </div>
+        <div class="page-content header-clear-large">
+
+
+            <div class="content content-box round-medium shadow-huge">
+                <h4 class="bold">Success</h4>
+                <p class="bottom-0">
+                    You did it! Let's learn the danger of bulk account creation
+                </p>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Danger of Bulk Account Creation</h4>
+                <p class="color-white bottom-10">
+                    Bulk account creation, and sometimes profile population, by using the application's account sign-up
+                    processes.<br><br>The accounts are subsequently misused for generating content spam, laundering cash
+                    and
+                    goods, spreading malware, a ecting reputation, causing mischief, and skewing search engine
+                    optimisation
+                    (SEO), reviews and surveys.
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Example Attack</h4>
+                <p class="color-white bottom-10">
+                    The attacker can use the following command to create bulk accounts.
+                </p>
+                <div class="window">
+                    <div class="terminal">
+                        <p class="command">user@ubuntu:~$ ./spam -u https://amyzon.com/register</p>
+                        <p id="log" class="log">
+                            <span>
+                                account created: username="abdsfjwd" password="a!adf*q9"<br>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer" data-footer-load="menu-footer.html"></div>
+        </div>
+
+        <!-- Page Menus -->
+        <div id="menu-share" class="menu-box menu-box-detached round-medium" data-menu-type="menu-box-bottom"
+            data-menu-height="390" data-menu-load="menu-share.html" data-menu-effect="menu-over">
+        </div>
+
+        <div id="menu-settings" class="menu-box menu-box-gradient" data-menu-type="menu-box-modal"
+            data-menu-height="100%" data-menu-width="100%" data-menu-load="menu-settings.html"
+            data-menu-effect="menu-over">
+        </div>
+
+        <div class="menu-hider"></div>
+    </div>
+
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/plugins.js"></script>
+    <script type="text/javascript" src="scripts/custom.js" async></script>
+</body>

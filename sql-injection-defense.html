@@ -1,0 +1,469 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Webspection</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/framework.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,500,500i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">
+    <!-- Don't forget to update PWA version (must be same) in pwa.js & manifest.json -->
+    <link rel="manifest" href="_manifest.json" data-pwa-version="set_by_pwa.js">
+    <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+    <style>
+        .message {
+            margin-bottom: 15px;
+        }
+
+        .image {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .user {
+            float: left;
+            font-weight: bold;
+            color: #009;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            margin-left: 30px;
+            font-style: italic;
+        }
+
+        .colored {
+            color: #6e63fe;
+        }
+
+        .small,
+        p {
+            font-size: small;
+        }
+
+        textarea {
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #292d3f;
+            color: white;
+            font-size: small;
+        }
+
+        #blocklyContainer {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+        }
+
+        #blocklyDiv {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    </style>
+    <script>
+        //paste the seed here
+        function generateBlockly() {
+            var seed = "JiYmJiAgICAgICAgICAgICAgICA8aDQgaWQ9InNvbHV0aW9uIiBjbGFzcz0iY29sb3Itd2hpdGUgYm9sZCB0b3AtMTAiPkNyZWF0ZSBZb3VyIFNvbHV0aW9uPC9oND4gICAgICAgICAgICAgICAgPHNlY3Rpb24gaWQ9ImJsb2NrbHlDb250YWluZXIiPiAgICAgICAgICAgICAgICAgICAgPGRpdiBpZD0iYmxvY2tseURpdiIgc3R5bGU9IndpZHRoOiAxMDAlIj48L2Rpdj4gICAgICAgICAgICAgICAgICAgIDx4bWwgaWQ9InRvb2xib3giIHN0eWxlPSJkaXNwbGF5OiBub25lIj4gICAgICAgIDxibG9jayB0eXBlPSJjb25uZWN0IG15c3FsIj48L2Jsb2NrPjxibG9jayB0eXBlPSJlbmQgY29ubmVjdGlvbiI+PC9ibG9jaz48YmxvY2sgdHlwZT0icmVjZWl2ZSBwYXJhbWV0ZXIgdmFsdWVzIj48L2Jsb2NrPjxibG9jayB0eXBlPSJzZWxlY3QgKiBmcm9tIHVzZXJzIHdoZXJlIGVtYWlsID0gMSBvciAxPTEiPjwvYmxvY2s+PGJsb2NrIHR5cGU9Im15c3FsIHF1ZXJ5Ij48L2Jsb2NrPjxibG9jayB0eXBlPSJzZWxlY3QgKiBmcm9tIHVzZXJzIHdoZXJlIGVtYWlsID0gPyI+PC9ibG9jaz48YmxvY2sgdHlwZT0iMSBvciAxPTEiPjwvYmxvY2s+PGJsb2NrIHR5cGU9InNldF92YWx1ZSI+PC9ibG9jaz48YmxvY2sgdHlwZT0ic2FuaXRpemVkIGlucHV0Ij48L2Jsb2NrPiAgICAgICAgICAgICAgICAgICAgPC94bWw+ICAgICAgICAgICAgICAgIDwvc2VjdGlvbj4gICAgICAgICZjb25uZWN0bXlzcWwoIiIpO3JlY2VpdmVwYXJhbWV0ZXJ2YWx1ZXMoIihzZWxlY3QqZnJvbXVzZXJzd2hlcmVlbWFpbD0xb3IxPTEpIik7bXlzcWxxdWVyeSgiKHNlbGVjdCpmcm9tdXNlcnN3aGVyZWVtYWlsPT8pIik7JCgiKHNhbml0aXplZGlucHV0KSIpLnZhbCgiKDFvcjE9MSkiKW15c3FscXVlcnkoIihzYW5pdGl6ZWRpbnB1dCkiKTtlbmRjb25uZWN0aW9uKCIiKTsmICAgICAgICAgICAgQmxvY2tseS5CbG9ja3NbJ2Nvbm5lY3QgbXlzcWwnXSA9IHsgICAgICAgICAgICAgICAgaW5pdDogZnVuY3Rpb24gKCkgeyAgICAgICAgICAgICAgICB0aGlzLmFwcGVuZFZhbHVlSW5wdXQoIk5BTUUiKSAgICAgICAgICAgICAgICAgICAgLnNldENoZWNrKG51bGwpICAgICAgICAgICAgICAgICAgICAuYXBwZW5kRmllbGQoImNvbm5lY3QgbXlzcWwiKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRQcmV2aW91c1N0YXRlbWVudCh0cnVlLCBudWxsKTsgICAgICAgICAgICAgICAgdGhpcy5zZXROZXh0U3RhdGVtZW50KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldENvbG91cigyMzApOyAgICAgICAgICAgICAgICB0aGlzLnNldFRvb2x0aXAoIiIpOyAgICAgICAgICAgICAgICB0aGlzLnNldEhlbHBVcmwoIiIpOyAgICAgICAgICAgIH0gICAgICAgIH07ICAgICAgICBCbG9ja2x5LkphdmFTY3JpcHRbJ2Nvbm5lY3QgbXlzcWwnXSA9IGZ1bmN0aW9uIChibG9jaykgeyAgICAgICAgICAgIHZhciB2YWx1ZV9uYW1lID0gQmxvY2tseS5KYXZhU2NyaXB0LnZhbHVlVG9Db2RlKGJsb2NrLCAnTkFNRScsIEJsb2NrbHkuSmF2YVNjcmlwdC5PUkRFUl9BVE9NSUMpOyAgICAgICAgICAgICAgICAgICAgICAgIHZhciBjb2RlID0gJ2Nvbm5lY3QgbXlzcWwoIicgKyB2YWx1ZV9uYW1lICsgJyIpO1xuJzsgICAgICAgICAgICByZXR1cm4gY29kZTsgICAgICAgIH07ICAgICAgICAgICAgICAgICAgICAgICAgQmxvY2tseS5CbG9ja3NbJ2VuZCBjb25uZWN0aW9uJ10gPSB7ICAgICAgICAgICAgICAgIGluaXQ6IGZ1bmN0aW9uICgpIHsgICAgICAgICAgICAgICAgdGhpcy5hcHBlbmRWYWx1ZUlucHV0KCJOQU1FIikgICAgICAgICAgICAgICAgICAgIC5zZXRDaGVjayhudWxsKSAgICAgICAgICAgICAgICAgICAgLmFwcGVuZEZpZWxkKCJlbmQgY29ubmVjdGlvbiIpOyAgICAgICAgICAgICAgICB0aGlzLnNldFByZXZpb3VzU3RhdGVtZW50KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldE5leHRTdGF0ZW1lbnQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDIzMCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsnZW5kIGNvbm5lY3Rpb24nXSA9IGZ1bmN0aW9uIChibG9jaykgeyAgICAgICAgICAgIHZhciB2YWx1ZV9uYW1lID0gQmxvY2tseS5KYXZhU2NyaXB0LnZhbHVlVG9Db2RlKGJsb2NrLCAnTkFNRScsIEJsb2NrbHkuSmF2YVNjcmlwdC5PUkRFUl9BVE9NSUMpOyAgICAgICAgICAgICAgICAgICAgICAgIHZhciBjb2RlID0gJ2VuZCBjb25uZWN0aW9uKCInICsgdmFsdWVfbmFtZSArICciKTtcbic7ICAgICAgICAgICAgcmV0dXJuIGNvZGU7ICAgICAgICB9OyAgICAgICAgICAgICAgICAgICAgICAgIEJsb2NrbHkuQmxvY2tzWydyZWNlaXZlIHBhcmFtZXRlciB2YWx1ZXMnXSA9IHsgICAgICAgICAgICAgICAgaW5pdDogZnVuY3Rpb24gKCkgeyAgICAgICAgICAgICAgICB0aGlzLmFwcGVuZFZhbHVlSW5wdXQoIk5BTUUiKSAgICAgICAgICAgICAgICAgICAgLnNldENoZWNrKG51bGwpICAgICAgICAgICAgICAgICAgICAuYXBwZW5kRmllbGQoInJlY2VpdmUgcGFyYW1ldGVyIHZhbHVlcyIpOyAgICAgICAgICAgICAgICB0aGlzLnNldFByZXZpb3VzU3RhdGVtZW50KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldE5leHRTdGF0ZW1lbnQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDIzMCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsncmVjZWl2ZSBwYXJhbWV0ZXIgdmFsdWVzJ10gPSBmdW5jdGlvbiAoYmxvY2spIHsgICAgICAgICAgICB2YXIgdmFsdWVfbmFtZSA9IEJsb2NrbHkuSmF2YVNjcmlwdC52YWx1ZVRvQ29kZShibG9jaywgJ05BTUUnLCBCbG9ja2x5LkphdmFTY3JpcHQuT1JERVJfQVRPTUlDKTsgICAgICAgICAgICAgICAgICAgICAgICB2YXIgY29kZSA9ICdyZWNlaXZlIHBhcmFtZXRlciB2YWx1ZXMoIicgKyB2YWx1ZV9uYW1lICsgJyIpO1xuJzsgICAgICAgICAgICByZXR1cm4gY29kZTsgICAgICAgIH07ICAgICAgICAgICAgICAgICAgICAgICAgQmxvY2tseS5CbG9ja3NbJ3NlbGVjdCAqIGZyb20gdXNlcnMgd2hlcmUgZW1haWwgPSAxIG9yIDE9MSddID0geyAgICAgICAgICAgIGluaXQ6IGZ1bmN0aW9uICgpIHsgICAgICAgICAgICAgICAgdGhpcy5hcHBlbmREdW1teUlucHV0KCkgICAgICAgICAgICAgICAgICAgIC5hcHBlbmRGaWVsZCgic2VsZWN0ICogZnJvbSB1c2VycyB3aGVyZSBlbWFpbCA9IDEgb3IgMT0xIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0T3V0cHV0KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldENvbG91cigxNjApOyAgICAgICAgICAgICAgICB0aGlzLnNldFRvb2x0aXAoIiIpOyAgICAgICAgICAgICAgICB0aGlzLnNldEhlbHBVcmwoIiIpOyAgICAgICAgICAgIH0gICAgICAgIH07ICAgICAgICBCbG9ja2x5LkphdmFTY3JpcHRbJ3NlbGVjdCAqIGZyb20gdXNlcnMgd2hlcmUgZW1haWwgPSAxIG9yIDE9MSddID0gZnVuY3Rpb24gKGJsb2NrKSB7ICAgICAgICAgICAgdmFyIGNvZGUgPSAnc2VsZWN0ICogZnJvbSB1c2VycyB3aGVyZSBlbWFpbCA9IDEgb3IgMT0xJzsgICAgICAgICAgICByZXR1cm4gW2NvZGUsIEJsb2NrbHkuSmF2YVNjcmlwdC5PUkRFUl9OT05FXTsgICAgICAgICAgICAgICAgICAgIH07ICAgICAgICAgICAgICAgICAgICAgICAgQmxvY2tseS5CbG9ja3NbJ215c3FsIHF1ZXJ5J10gPSB7ICAgICAgICAgICAgICAgIGluaXQ6IGZ1bmN0aW9uICgpIHsgICAgICAgICAgICAgICAgdGhpcy5hcHBlbmRWYWx1ZUlucHV0KCJOQU1FIikgICAgICAgICAgICAgICAgICAgIC5zZXRDaGVjayhudWxsKSAgICAgICAgICAgICAgICAgICAgLmFwcGVuZEZpZWxkKCJteXNxbCBxdWVyeSIpOyAgICAgICAgICAgICAgICB0aGlzLnNldFByZXZpb3VzU3RhdGVtZW50KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldE5leHRTdGF0ZW1lbnQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDIzMCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsnbXlzcWwgcXVlcnknXSA9IGZ1bmN0aW9uIChibG9jaykgeyAgICAgICAgICAgIHZhciB2YWx1ZV9uYW1lID0gQmxvY2tseS5KYXZhU2NyaXB0LnZhbHVlVG9Db2RlKGJsb2NrLCAnTkFNRScsIEJsb2NrbHkuSmF2YVNjcmlwdC5PUkRFUl9BVE9NSUMpOyAgICAgICAgICAgICAgICAgICAgICAgIHZhciBjb2RlID0gJ215c3FsIHF1ZXJ5KCInICsgdmFsdWVfbmFtZSArICciKTtcbic7ICAgICAgICAgICAgcmV0dXJuIGNvZGU7ICAgICAgICB9OyAgICAgICAgICAgICAgICAgICAgICAgIEJsb2NrbHkuQmxvY2tzWydzZWxlY3QgKiBmcm9tIHVzZXJzIHdoZXJlIGVtYWlsID0gPyddID0geyAgICAgICAgICAgIGluaXQ6IGZ1bmN0aW9uICgpIHsgICAgICAgICAgICAgICAgdGhpcy5hcHBlbmREdW1teUlucHV0KCkgICAgICAgICAgICAgICAgICAgIC5hcHBlbmRGaWVsZCgic2VsZWN0ICogZnJvbSB1c2VycyB3aGVyZSBlbWFpbCA9ID8iKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRPdXRwdXQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDE2MCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsnc2VsZWN0ICogZnJvbSB1c2VycyB3aGVyZSBlbWFpbCA9ID8nXSA9IGZ1bmN0aW9uIChibG9jaykgeyAgICAgICAgICAgIHZhciBjb2RlID0gJ3NlbGVjdCAqIGZyb20gdXNlcnMgd2hlcmUgZW1haWwgPSA/JzsgICAgICAgICAgICByZXR1cm4gW2NvZGUsIEJsb2NrbHkuSmF2YVNjcmlwdC5PUkRFUl9OT05FXTsgICAgICAgICAgICAgICAgICAgIH07ICAgICAgICAgICAgICAgICAgICAgICAgQmxvY2tseS5CbG9ja3NbJzEgb3IgMT0xJ10gPSB7ICAgICAgICAgICAgaW5pdDogZnVuY3Rpb24gKCkgeyAgICAgICAgICAgICAgICB0aGlzLmFwcGVuZER1bW15SW5wdXQoKSAgICAgICAgICAgICAgICAgICAgLmFwcGVuZEZpZWxkKCIxIG9yIDE9MSIpOyAgICAgICAgICAgICAgICB0aGlzLnNldE91dHB1dCh0cnVlLCBudWxsKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRDb2xvdXIoMTYwKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRUb29sdGlwKCIiKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRIZWxwVXJsKCIiKTsgICAgICAgICAgICB9ICAgICAgICB9OyAgICAgICAgQmxvY2tseS5KYXZhU2NyaXB0WycxIG9yIDE9MSddID0gZnVuY3Rpb24gKGJsb2NrKSB7ICAgICAgICAgICAgdmFyIGNvZGUgPSAnMSBvciAxPTEnOyAgICAgICAgICAgIHJldHVybiBbY29kZSwgQmxvY2tseS5KYXZhU2NyaXB0Lk9SREVSX05PTkVdOyAgICAgICAgICAgICAgICAgICAgfTsgICAgICAgICAgICAgICAgICAgICAgICBCbG9ja2x5LkJsb2Nrc1snc2FuaXRpemVkIGlucHV0J10gPSB7ICAgICAgICAgICAgaW5pdDogZnVuY3Rpb24gKCkgeyAgICAgICAgICAgICAgICB0aGlzLmFwcGVuZER1bW15SW5wdXQoKSAgICAgICAgICAgICAgICAgICAgLmFwcGVuZEZpZWxkKCJzYW5pdGl6ZWQgaW5wdXQiKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRPdXRwdXQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDE2MCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsnc2FuaXRpemVkIGlucHV0J10gPSBmdW5jdGlvbiAoYmxvY2spIHsgICAgICAgICAgICB2YXIgY29kZSA9ICdzYW5pdGl6ZWQgaW5wdXQnOyAgICAgICAgICAgIHJldHVybiBbY29kZSwgQmxvY2tseS5KYXZhU2NyaXB0Lk9SREVSX05PTkVdOyAgICAgICAgICAgICAgICAgICAgfTsgICAgICAgICAgICA=";
+            generate();
+            function generate() {
+                // stuff you want to do every second
+                xmlSourceCode = atob(seed);
+                var xmlList = xmlSourceCode.split('&');
+                $("#tutorialName").html("Injection attack defense");
+                $("#tutorialContent").html("Injection attack occurs when maliciously crafted inputs are executed in the back-end, causing the application to perform unintended action. As many companies use SQL as their databases, SQL injection attack is the most common attack on web");
+                $("#tutorialTask").html("Try to create a program to protect the system against SQL injection attack");
+                $("#hints").html(xmlList[3]);
+                $("#blockWorkspace").html(xmlList[4]);
+                console.log(xmlList[6]);
+                eval(xmlList[6]);
+
+                var xmlSourceCode = "";
+                var options = {
+                    toolbox: toolbox,
+                    collapse: false,
+                    comments: false,
+                    disable: false,
+                    maxBlocks: Infinity,
+                    trashcan: false,
+                    horizontalLayout: true,
+                    toolboxPosition: 'start',
+                    css: true,
+                    media: 'https://blockly-demo.appspot.com/static/media/',
+                    rtl: false,
+                    scrollbars: false,
+                    sounds: true,
+                    oneBasedIndex: true,
+                    zoom: {
+                        controls: false,
+                        wheel: false,
+                        startScale: 0.7,
+                        maxScale: 3,
+                        minScale: 0.3,
+                        scaleSpeed: 1.2
+                    }
+                };
+                var workspace = Blockly.inject('blocklyDiv', options);
+
+                function sleep(delay) {
+                    var start = new Date().getTime();
+                    while (new Date().getTime() < start + delay);
+                }
+                function myUpdateFunction(event) {
+                    var code = Blockly.JavaScript.workspaceToCode(workspace);
+                    document.getElementById('textarea').value = code;
+                    var targetStr = xmlList[5];
+                    if (document.getElementById('textarea').value.replace(/(\r\n|\n|\r)/gm, "").replace(/ /g, '').includes(targetStr)) {
+                        $("#alertButton").click();
+                    }
+                }
+                workspace.addChangeListener(myUpdateFunction);
+            }
+        }
+    </script>
+</head>
+
+<body onload="generateBlockly()" class="theme-light" data-gradient="gradient-1">
+
+    <div id="page">
+
+        <div id="page-preloader">
+            <div class="loader-main">
+                <div class="preload-spinner"></div>
+            </div>
+        </div>
+
+        <div class="header header-fixed header-logo-app">
+            <h1 class="content top-15">ⓦ Webspection</h1>
+            <a href="#" class="back-button header-icon header-icon-1"><i class="fas fa-arrow-left font-13"></i></a>
+            <a href="#" class="header-icon header-icon-2" data-menu="menu-settings"><i
+                    class="fas fa-cog fa-spin font-13"></i></a>
+            <a href="#" class="header-icon header-icon-3" data-toggle-theme><i class="fas fa-moon"></i></a>
+        </div>
+
+        <div class="footer-menu footer-5-icons shadow-huge shadow-huge">
+            <a href=""><i class="fa fa-heart"></i><span></span></a>
+            <a href="page-about.html"><i class="fa fa-gift"></i><span>About</span></a>
+            <a href="index.html" class="active-nav"><i class="fa fa-home"></i><span>Home</span></a>
+            <a href="media.html"><i class="fa fa-image"></i><span>Tutorial</span></a>
+            <a href="page-contact.html"><i class="fa fa-gift"></i><span>Create</span></a>
+            <div class="clear"></div>
+        </div>
+
+        <div class="page-bg">
+            <div></div>
+        </div>
+        <div id="notification-5" class="notification-style notification-android bg-green1-dark">
+            <i class="fa fa-check color-green1-dark bg-white"></i>
+            <h1 class="font-15">Success!</h1>
+            <strong>Time</strong>
+            <p>
+                Congratulations! You have completed the tutorial!
+            </p>
+            <div class="notification-buttons">
+                <div class="one-half">
+                    <a href="#"><i class="fa fa-info-circle"></i>Find out More</a>
+                </div>
+                <div class="one-half">
+                    <a href="#"><i class="fa fa-arrow-right"></i>Thank you</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="page-content header-clear-large">
+
+            <a id="alertButton" style="display: none" href="#" data-notification="notification-5" class="no-border"><i
+                    class="font-16 fa fa-check-square color-green1-dark"></i><span>Confirmation Alert</span><i
+                    class="fa fa-angle-right"></i></a>
+
+            <div style="display: none" class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Paste Your Seed Here</h4>
+                <textarea class="content" id="xmlCode" rows="10" cols="35"></textarea>
+                <button class="button shadow-huge button-m button-circle bg-yellow2-dark"
+                    onclick="generate()">Generate</button>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge">
+                <h4 id="tutorialName" class="bold">Automated Threat</h4>
+                <div style="width: 50%; float:left">
+                    <p id="tutorialContent" class="bottom-0">
+                        This is a threat events to applications undertaken using automated
+                        actions. The focus is on abuse of functionality - misuse of inherent functionality and related
+                        design flaws
+                    </p>
+                </div>
+                <div style="width: 40%; float:right">
+                    <img style="background-color: white;" src="images/phishing.PNG" />
+                </div>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge">
+                <h4 class="bold">What is the danger of SQL injection attack?</h4>
+                <p class="bottom-0">
+                    A sql injection flaw may allow attacker to extract sensitive information from the database, delete
+                    data, or inject malicious code to be executed when users visit the website
+                </p>
+                <br>
+                <h4 class="bold">How can we protect our system against SQL injection attack?</h4>
+                <p class="bottom-0">
+                    The webserver allows an applicaiton to run SQL statements in a database and extract data as needed.
+                    Parameterized statements can make sure the parameters passed into the database are treated in a safe
+                    manner
+                </p>
+            </div>
+            <script>
+                function openInNewTab(url) {
+                    var win = window.open(url);
+                    win.focus();
+                }
+            </script>
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Your Task</h4>
+                <p id="tutorialTask" class="color-white bottom-10">
+                    Create a program to create bulk accounts
+                </p>
+                <button onclick="openInNewTab('how-to-play.html');"
+                    class="button shadow-huge button-s button-circle bg-yellow2-dark">How to play?</button>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <div style="width: 50%; float:left">
+                    <h4 class="color-white bold top-10">Hints</h4>
+                    <p style="display: none" id="hints" class="color-white bottom-10">
+                        You can use a loop to create multiple accounts</p>
+                    <p id="hint" class="color-white bottom-10">
+                        You can use a loop to create multiple accounts</p>
+                </div>
+
+                <div style="width: 50%; float:right">
+                    <h4 class="color-white bold top-10">Visualization</h4>
+                    <img style="background-color: white;" id="my_image" src="images/database.PNG" />
+                </div>
+            </div>
+
+            <div id="blockWorkspace" class="content content-box round-medium shadow-huge bg-blue2-dark">
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Compiler</h4>
+                <textarea class="content" id="textarea" rows="10" cols="35"></textarea>
+            </div>
+
+            <div class="footer" data-footer-load="menu-footer.html"></div>
+        </div>
+
+        <!-- Page Menus -->
+        <div id="menu-share" class="menu-box menu-box-detached round-medium" data-menu-type="menu-box-bottom"
+            data-menu-height="390" data-menu-load="menu-share.html" data-menu-effect="menu-over">
+        </div>
+
+        <div id="menu-settings" class="menu-box menu-box-gradient" data-menu-type="menu-box-modal"
+            data-menu-height="100%" data-menu-width="100%" data-menu-load="menu-settings.html"
+            data-menu-effect="menu-over">
+        </div>
+
+        <div class="menu-hider"></div>
+    </div>
+
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/plugins.js"></script>
+    <script type="text/javascript" src="scripts/custom.js" async></script>
+
+    <script src="js/blockly_compressed.js"></script>
+    <script src="js/blocks_compressed.js"></script>
+    <script src="js/javascript_compressed.js"></script>
+    <script src="js/en.js"></script>
+    <script>
+        Blockly.Blocks['print'] = {
+            init: function () {
+                this.appendValueInput("NAME")
+                    .setCheck(null)
+                    .appendField("print");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(230);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['print'] = function (block) {
+            var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+            // TODO: Assemble JavaScript into code variable.
+            var code = 'console.log("' + value_name + '");\n';
+            return code;
+        };
+        Blockly.Blocks['create_account'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("create account");
+                this.setPreviousStatement(true, null);
+                this.setColour(65);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['create_account'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = '$("#register").click();\n';
+            return code;
+        };
+        Blockly.Blocks['set_value'] = {
+            init: function () {
+                this.appendValueInput("variable")
+                    .setCheck(null)
+                    .appendField("set");
+                this.appendValueInput("value")
+                    .setCheck(null)
+                    .appendField("=");
+                this.setInputsInline(true);
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(210);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['set_value'] = function (block) {
+            var value_variable = Blockly.JavaScript.valueToCode(block, 'variable', Blockly.JavaScript.ORDER_ATOMIC);
+            var value_value = Blockly.JavaScript.valueToCode(block, 'value', Blockly.JavaScript.ORDER_ATOMIC);
+            // TODO: Assemble JavaScript into code variable.
+            var code = '$("' + value_variable + '").val("' + value_value + '")\n';
+            return code;
+        };
+        Blockly.Blocks['password'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("password");
+                this.setOutput(true, null);
+                this.setColour(160);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['password'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = '#password';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+        Blockly.Blocks['randomstring'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("random string");
+                this.setInputsInline(false);
+                this.setOutput(true, null);
+                this.setColour(290);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['randomstring'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = 'Math.random().toString(36).substring(7);';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+        Blockly.Blocks['username'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("username");
+                this.setOutput(true, null);
+                this.setColour(160);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['username'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = '#username';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+        Blockly.Blocks['string_length'] = {
+            init: function () {
+                this.appendValueInput('VALUE')
+                    .setCheck('String')
+                    .appendField('length of');
+                this.setOutput(true, 'Number');
+                this.setColour(160);
+                this.setTooltip('Returns number of letters in the provided text.');
+                this.setHelpUrl('http://www.w3schools.com/jsref/jsref_length_string.asp');
+            }
+        };
+        Blockly.JavaScript['string_length'] = function (block) {
+            // String or array length.
+            var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
+                Blockly.JavaScript.ORDER_FUNCTION_CALL) || '\'\'';
+            return [argument0 + '.length', Blockly.JavaScript.ORDER_MEMBER];
+        };
+
+
+    </script>
+    <script id="lzutf8" src="https://cdn.jsdelivr.net/npm/lzutf8/build/production/lzutf8.js"></script>
+
+    <script>
+
+        $(function () {
+            setInterval(detectTextArea, 1000);
+        });
+        function found(lookupValue, testString) {
+            return testString.indexOf(lookupValue) !== -1;
+        }
+
+        function detectTextArea() {
+            var code = document.getElementById('textarea').value;
+            var hintstr = "";
+            var flag = 0;
+
+            //var
+            var bot = false;
+            var http = false;
+
+            if (!found("mysql query(\"(select * from users where email = ?)", code)) {
+                if (!found("mysql query(\"(sanitized input)", code)) {
+                    hintstr += "<b><span style=\"color:red\">• mysql needs to query and parameters passed separately</span></b><br>";
+                }
+            } else {
+                hintstr += "<b><span style=\"color:lightgreen\">• Correct! mysql now query and parameters passed separately</span></b><br>";
+            }
+
+            if (!found("receive parameter values(\"(select * from users where email = 1 or 1=1)", code)) {
+                hintstr += "<b><span style=\"color:red\">• What is the received parameter value?</span></b><br>";
+            } else {
+                hintstr += "<b><span style=\"color:lightgreen\">• Correct! The received parameter value is select * from users where email = 1 or 1=1</span></b><br>";
+            }
+
+            if (!found("(sanitized input)\").val(\"(1 or 1=1)", code)) {
+                hintstr += "<b><span style=\"color:red\">• Try to sanitize the input</span></b><br>";
+            } else {
+                hintstr += "<b><span style=\"color:lightgreen\">• Correct! The input is now sanitized</span></b><br>";
+                http = true;
+            }
+
+            if (!found("mysql query", code)) {
+                hintstr += "<b><span style=\"color:red\">• Try to do query the data</span></b><br>";
+            } else {
+                hintstr += "<b><span style=\"color:lightgreen\">• Correct! The data is now queried in mysql</span></b><br>";
+                bot = true;
+            }
+
+            $("#hint").html(hintstr);
+        }
+    </script>
+</body>

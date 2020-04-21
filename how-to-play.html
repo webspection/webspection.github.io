@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Webspection</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/framework.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,500,500i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">
+    <!-- Don't forget to update PWA version (must be same) in pwa.js & manifest.json -->
+    <link rel="manifest" href="_manifest.json" data-pwa-version="set_by_pwa.js">
+    <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+    <style>
+        .message {
+            margin-bottom: 15px;
+        }
+
+        .image {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .user {
+            float: left;
+            font-weight: bold;
+            color: #009;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            margin-left: 30px;
+            font-style: italic;
+        }
+
+        .colored {
+            color: #6e63fe;
+        }
+
+        .small,
+        p {
+            font-size: small;
+        }
+
+        textarea {
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #292d3f;
+            color: white;
+            font-size: small;
+        }
+
+        #blocklyContainer {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+        }
+
+        #blocklyDiv {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        img {
+            width: 300px;
+        }
+
+        @media (max-width: 500px) {
+            img {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
+
+<body class="theme-light" data-gradient="gradient-1">
+
+    <div id="page">
+
+        <div id="page-preloader">
+            <div class="loader-main">
+                <div class="preload-spinner"></div>
+            </div>
+        </div>
+
+        <div class="header header-fixed header-logo-app">
+            <h1 class="content top-15">ⓦ Webspection</h1>
+            <a href="#" class="back-button header-icon header-icon-1"><i class="fas fa-arrow-left font-13"></i></a>
+            <a href="#" class="header-icon header-icon-2" data-menu="menu-settings"><i
+                    class="fas fa-cog fa-spin font-13"></i></a>
+            <a href="#" class="header-icon header-icon-3" data-toggle-theme><i class="fas fa-moon"></i></a>
+        </div>
+
+        <div class="footer-menu footer-5-icons shadow-huge shadow-huge">
+            <a href=""><i class="fa fa-heart"></i><span></span></a>
+            <a href="page-about.html"><i class="fa fa-gift"></i><span>About</span></a>
+            <a href="index.html" class="active-nav"><i class="fa fa-home"></i><span>Home</span></a>
+            <a href="media.html"><i class="fa fa-image"></i><span>Tutorial</span></a>
+            <a href="page-contact.html"><i class="fa fa-gift"></i><span>Create</span></a>
+            <div class="clear"></div>
+        </div>
+
+        <div class="page-bg">
+            <div></div>
+        </div>
+        <div id="notification-5" class="notification-style notification-android bg-green1-dark">
+            <i class="fa fa-check color-green1-dark bg-white"></i>
+            <h1 class="font-15">Success!</h1>
+            <strong>Time</strong>
+            <p>
+                Congratulations! You have completed the tutorial!
+            </p>
+            <div class="notification-buttons">
+                <div class="one-half">
+                    <a href="#"><i class="fa fa-info-circle"></i>Find out More</a>
+                </div>
+                <div class="one-half">
+                    <a href="#"><i class="fa fa-arrow-right"></i>Thank you</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="page-content header-clear-large">
+
+            <a id="alertButton" style="display: none" href="#" data-notification="notification-5" class="no-border"><i
+                    class="font-16 fa fa-check-square color-green1-dark"></i><span>Confirmation Alert</span><i
+                    class="fa fa-angle-right"></i></a>
+
+            <div style="display: none" class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Paste Your Seed Here</h4>
+                <textarea class="content" id="xmlCode" rows="10" cols="35"></textarea>
+                <button class="button shadow-huge button-m button-circle bg-yellow2-dark"
+                    onclick="generate()">Generate</button>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge">
+                <h4 id="tutorialName" class="bold">How to play?</h4>
+                <p id="tutorialContent" class="bottom-0">
+                    This interactive tutorial is designed for users totally new to cybersecurity or programming. The
+                    assessment is aimed for learners to understand the basic concepts of cybersecurity. We used blockly, a block based programming language to help inexperienced users to learn cybersecurity effectively
+                </p>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Step 1</h4>
+                <p id="tutorialTask" class="color-white bottom-10">
+                    You can access the area of the interactive tutorial
+                    <img src="images/s1.PNG" alt="img" width="110" class="center-horizontal top-30 bottom-15">
+                    
+                </p>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Step 2</h4>
+                <p id="tutorialTask" class="color-white bottom-10">
+                    Select the correct block and drag it down to the script area
+                    <img src="images/s2.PNG" alt="img" width="110" class="center-horizontal top-30 bottom-15">
+                </p>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Step 3</h4>
+                <p id="tutorialTask" class="color-white bottom-10">
+                    Release the mouse and place the block on the script area
+                    <img src="images/s3.PNG" alt="img" width="110" class="center-horizontal top-30 bottom-15">
+                </p>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Step 4</h4>
+                <p id="tutorialTask" class="color-white bottom-10">
+                    You can watch what happens to the hints and the compiled scripts
+                    <img src="images/s4.PNG" alt="img" width="110" class="center-horizontal top-30 bottom-15">
+                </p>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Step 5</h4>
+                <p id="tutorialTask" class="color-white bottom-10">
+                    When the interactive tutorial is done, a success message will be pop-up
+                    <img src="images/s5.PNG" alt="img" width="110" class="center-horizontal top-30 bottom-15">
+                </p>
+            </div>
+
+            <div class="footer" data-footer-load="menu-footer.html"></div>
+        </div>
+
+        <!-- Page Menus -->
+        <div id="menu-share" class="menu-box menu-box-detached round-medium" data-menu-type="menu-box-bottom"
+            data-menu-height="390" data-menu-load="menu-share.html" data-menu-effect="menu-over">
+        </div>
+
+        <div id="menu-settings" class="menu-box menu-box-gradient" data-menu-type="menu-box-modal"
+            data-menu-height="100%" data-menu-width="100%" data-menu-load="menu-settings.html"
+            data-menu-effect="menu-over">
+        </div>
+
+        <div class="menu-hider"></div>
+    </div>
+
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/plugins.js"></script>
+    <script type="text/javascript" src="scripts/custom.js" async></script>
+
+    <script src="js/blockly_compressed.js"></script>
+    <script src="js/blocks_compressed.js"></script>
+    <script src="js/javascript_compressed.js"></script>
+    <script src="js/en.js"></script>
+</body>

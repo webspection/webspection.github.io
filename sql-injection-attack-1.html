@@ -1,0 +1,474 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <title>Webspection</title>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/framework.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:300,300i,400,400i,500,500i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,700,700i,900,900i"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">
+    <!-- Don't forget to update PWA version (must be same) in pwa.js & manifest.json -->
+    <link rel="manifest" href="_manifest.json" data-pwa-version="set_by_pwa.js">
+    <link rel="apple-touch-icon" sizes="180x180" href="app/icons/icon-192x192.png">
+    <style>
+        .message {
+            margin-bottom: 15px;
+        }
+
+        .image {
+            float: left;
+            margin-right: 10px;
+        }
+
+        .user {
+            float: left;
+            font-weight: bold;
+            color: #009;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            margin-left: 30px;
+            font-style: italic;
+        }
+
+        .colored {
+            color: #6e63fe;
+        }
+
+        .small,
+        p {
+            font-size: small;
+        }
+
+        textarea {
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #292d3f;
+            color: white;
+            font-size: small;
+        }
+
+        #blocklyContainer {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+        }
+
+        #blocklyDiv {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body class="theme-light" data-gradient="gradient-1">
+
+    <div id="page">
+
+        <div id="page-preloader">
+            <div class="loader-main">
+                <div class="preload-spinner"></div>
+            </div>
+        </div>
+
+        <div class="header header-fixed header-logo-app">
+            <h1 class="content top-15">ⓦ Webspection</h1>
+            <a href="#" class="back-button header-icon header-icon-1"><i class="fas fa-arrow-left font-13"></i></a>
+            <a href="#" class="header-icon header-icon-2" data-menu="menu-settings"><i
+                    class="fas fa-cog fa-spin font-13"></i></a>
+            <a href="#" class="header-icon header-icon-3" data-toggle-theme><i class="fas fa-moon"></i></a>
+        </div>
+
+        <div class="footer-menu footer-5-icons shadow-huge shadow-huge">
+            <a href=""><i class="fa fa-heart"></i><span></span></a>
+            <a href="page-about.html"><i class="fa fa-gift"></i><span>About</span></a>
+            <a href="index.html" class="active-nav"><i class="fa fa-home"></i><span>Home</span></a>
+            <a href="media.html"><i class="fa fa-image"></i><span>Tutorial</span></a>
+            <a href="page-contact.html"><i class="fa fa-gift"></i><span>Create</span></a>
+            <div class="clear"></div>
+        </div>
+
+        <div class="page-bg">
+            <div></div>
+        </div>
+        <div id="notification-5" class="notification-style notification-android bg-green1-dark">
+            <i class="fa fa-check color-green1-dark bg-white"></i>
+            <h1 class="font-15">Success!</h1>
+            <strong>Time</strong>
+            <p>
+                Congratulations! You have completed the tutorial!
+            </p>
+            <div class="notification-buttons">
+                <div class="one-half">
+                    <a href="#"><i class="fa fa-info-circle"></i>Find out More</a>
+                </div>
+                <div class="one-half">
+                    <a href="#"><i class="fa fa-arrow-right"></i>Thank you</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="page-content header-clear-large">
+
+            <a id="alertButton" style="display: none" href="#" data-notification="notification-5" class="no-border"><i
+                    class="font-16 fa fa-check-square color-green1-dark"></i><span>Confirmation Alert</span><i
+                    class="fa fa-angle-right"></i></a>
+
+            <div style="display: none" class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Paste Your Seed Here</h4>
+                <textarea class="content" id="xmlCode" rows="10" cols="35"></textarea>
+                <button class="button shadow-huge button-m button-circle bg-yellow2-dark"
+                    onclick="generate()">Generate</button>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge">
+                <h4 id="tutorialName" class="bold">Automated Threat</h4>
+                <div style="width: 50%; float:left">
+                    <p id="tutorialContent" class="bottom-0">
+                        This is a threat events to applications undertaken using automated
+                        actions. The focus is on abuse of functionality - misuse of inherent functionality and related
+                        design flaws
+                    </p>
+                </div>
+                <div style="width: 40%; float:right">
+                    <img style="background-color: white;" src="images/phishing.PNG" />
+                </div>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge">
+                <h4 class="bold">What is SQL injection attack?</h4>
+                <p class="bottom-0">
+                    It is an attack that allows attacker to use queries with the database. It allows attacker to view
+                    data that should not be available for retrieval
+                </p>
+                <br>
+                <h4 class="bold">What is the danger of SQL injection attack?</h4>
+                <p class="bottom-0">
+                    Attacker can use SQL injection attack to modify or delete the data in the database and cause
+                    persistent changes to the website. In some case, attacker can even use SQL injection attacker to
+                    compromise the server or perform further attack such as DoS attack
+                </p>
+            </div>
+            <script>
+                function openInNewTab(url) {
+                    var win = window.open(url);
+                    win.focus();
+                }
+            </script>
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Your Task</h4>
+                <p id="tutorialTask" class="color-white bottom-10">
+                    Create a program to create bulk accounts
+                </p>
+                <button onclick="openInNewTab('how-to-play.html');"
+                    class="button shadow-huge button-s button-circle bg-yellow2-dark">How to play?</button>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <div style="width: 50%; float:left">
+                    <h4 class="color-white bold top-10">Hints</h4>
+                    <p style="display: none" id="hints" class="color-white bottom-10">
+                        You can use a loop to create multiple accounts</p>
+                    <p id="hint" class="color-white bottom-10">
+                        You can use a loop to create multiple accounts</p>
+                </div>
+
+                <div style="width: 50%; float:right">
+                    <h4 class="color-white bold top-10">Visualization</h4>
+                    <img style="background-color: white;" id="my_image" src="images/sa1.png" />
+                </div>
+            </div>
+
+            <div id="blockWorkspace" class="content content-box round-medium shadow-huge bg-blue2-dark">
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-blue2-dark">
+                <h4 class="color-white bold top-10">Compiler</h4>
+                <textarea class="content" id="textarea" rows="10" cols="35"></textarea>
+            </div>
+
+            <div class="content content-box round-medium shadow-huge bg-gradient-green1">
+                <h4 class="color-white bold top-10">Hints</h4>
+                <p id="hints" class="color-white bottom-10">
+                    You can use a loop to create multiple accounts
+            </div>
+
+            <div class="footer" data-footer-load="menu-footer.html"></div>
+        </div>
+
+        <!-- Page Menus -->
+        <div id="menu-share" class="menu-box menu-box-detached round-medium" data-menu-type="menu-box-bottom"
+            data-menu-height="390" data-menu-load="menu-share.html" data-menu-effect="menu-over">
+        </div>
+
+        <div id="menu-settings" class="menu-box menu-box-gradient" data-menu-type="menu-box-modal"
+            data-menu-height="100%" data-menu-width="100%" data-menu-load="menu-settings.html"
+            data-menu-effect="menu-over">
+        </div>
+
+        <div class="menu-hider"></div>
+    </div>
+
+    <script type="text/javascript" src="scripts/jquery.js"></script>
+    <script type="text/javascript" src="scripts/plugins.js"></script>
+    <script type="text/javascript" src="scripts/custom.js" async></script>
+
+    <script src="js/blockly_compressed.js"></script>
+    <script src="js/blocks_compressed.js"></script>
+    <script src="js/javascript_compressed.js"></script>
+    <script src="js/en.js"></script>
+    <script>
+        Blockly.Blocks['print'] = {
+            init: function () {
+                this.appendValueInput("NAME")
+                    .setCheck(null)
+                    .appendField("print");
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(230);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['print'] = function (block) {
+            var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
+            // TODO: Assemble JavaScript into code variable.
+            var code = 'console.log("' + value_name + '");\n';
+            return code;
+        };
+        Blockly.Blocks['create_account'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("create account");
+                this.setPreviousStatement(true, null);
+                this.setColour(65);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['create_account'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = '$("#register").click();\n';
+            return code;
+        };
+        Blockly.Blocks['set_value'] = {
+            init: function () {
+                this.appendValueInput("variable")
+                    .setCheck(null)
+                    .appendField("set");
+                this.appendValueInput("value")
+                    .setCheck(null)
+                    .appendField("=");
+                this.setInputsInline(true);
+                this.setPreviousStatement(true, null);
+                this.setNextStatement(true, null);
+                this.setColour(210);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['set_value'] = function (block) {
+            var value_variable = Blockly.JavaScript.valueToCode(block, 'variable', Blockly.JavaScript.ORDER_ATOMIC);
+            var value_value = Blockly.JavaScript.valueToCode(block, 'value', Blockly.JavaScript.ORDER_ATOMIC);
+            // TODO: Assemble JavaScript into code variable.
+            var code = '$("' + value_variable + '").val("' + value_value + '")\n';
+            return code;
+        };
+        Blockly.Blocks['password'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("password");
+                this.setOutput(true, null);
+                this.setColour(160);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['password'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = '#password';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+        Blockly.Blocks['randomstring'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("random string");
+                this.setInputsInline(false);
+                this.setOutput(true, null);
+                this.setColour(290);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['randomstring'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = 'Math.random().toString(36).substring(7);';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+        Blockly.Blocks['username'] = {
+            init: function () {
+                this.appendDummyInput()
+                    .appendField("username");
+                this.setOutput(true, null);
+                this.setColour(160);
+                this.setTooltip("");
+                this.setHelpUrl("");
+            }
+        };
+        Blockly.JavaScript['username'] = function (block) {
+            // TODO: Assemble JavaScript into code variable.
+            var code = '#username';
+            // TODO: Change ORDER_NONE to the correct strength.
+            return [code, Blockly.JavaScript.ORDER_NONE];
+        };
+        Blockly.Blocks['string_length'] = {
+            init: function () {
+                this.appendValueInput('VALUE')
+                    .setCheck('String')
+                    .appendField('length of');
+                this.setOutput(true, 'Number');
+                this.setColour(160);
+                this.setTooltip('Returns number of letters in the provided text.');
+                this.setHelpUrl('http://www.w3schools.com/jsref/jsref_length_string.asp');
+            }
+        };
+        Blockly.JavaScript['string_length'] = function (block) {
+            // String or array length.
+            var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
+                Blockly.JavaScript.ORDER_FUNCTION_CALL) || '\'\'';
+            return [argument0 + '.length', Blockly.JavaScript.ORDER_MEMBER];
+        };
+
+
+    </script>
+    <script id="lzutf8" src="https://cdn.jsdelivr.net/npm/lzutf8/build/production/lzutf8.js"></script>
+    <script>
+        //paste the seed here
+        var seed = "U1FMIGluamVjdGlvbiZTUUwgaW5qZWN0aW9uIHVzdWFsbHkgb2NjdXJzIHdoZW4geW91IGFzayBhIHVzZXIgZm9yIGlucHV0JTJDIGxpa2UgdGhlaXIgdXNlcm5hbWUlMkMgYW5kIGluc3RlYWQgb2YgYSBuYW1lJTJDIHRoZSB1c2VyIGdpdmVzIHlvdSBhbiBTUUwgc3RhdGVtZW50IHRoYXQgeW91IHdpbGwgdW5rbm93aW5nbHkgcnVuIG9uIHlvdXIgZGF0YWJhc2UmVHJ5IHRvIGNyZWF0ZSBhIHByb2dyYW0gdG8gc2ltdWxhdGUgU1FMIGluamVjdGlvbiBhdHRhY2smU1FMIGluamVjdGlvbiBpcyB0aGUgcGxhY2VtZW50IG9mIG1hbGljaW91cyBjb2RlIGluIFNRTCBzdGF0ZW1lbnRzJTJDIHZpYSB3ZWIgcGFnZSBpbnB1dCYgICAgICAgICAgICAgICAgPGg0IGlkPSJzb2x1dGlvbiIgY2xhc3M9ImNvbG9yLXdoaXRlIGJvbGQgdG9wLTEwIj5DcmVhdGUgWW91ciBTb2x1dGlvbjwvaDQ+ICAgICAgICAgICAgICAgIDxzZWN0aW9uIGlkPSJibG9ja2x5Q29udGFpbmVyIj4gICAgICAgICAgICAgICAgICAgIDxkaXYgaWQ9ImJsb2NrbHlEaXYiIHN0eWxlPSJ3aWR0aDogMTAwJSI+PC9kaXY+ICAgICAgICAgICAgICAgICAgICA8eG1sIGlkPSJ0b29sYm94IiBzdHlsZT0iZGlzcGxheTogbm9uZSI+ICAgICAgICA8YmxvY2sgdHlwZT0ic2VuZCByZXF1ZXN0Ij48L2Jsb2NrPjxibG9jayB0eXBlPSJzZXRfdmFsdWUiPjwvYmxvY2s+PGJsb2NrIHR5cGU9Imh0dHA6Ly9iYW5rLmNvbT91c2VyaWQ9Ij48L2Jsb2NrPjxibG9jayB0eXBlPSIxMjMgb3IgMT0xIj48L2Jsb2NrPjxibG9jayB0eXBlPSJjb252ZXJ0IHRvIHNxbCBjb21tYW5kIj48L2Jsb2NrPjxibG9jayB0eXBlPSJzZWxlY3QgZnJvbSB1c2VycyB3aGVyZSB1c2VyaWQ9Ij48L2Jsb2NrPjxibG9jayB0eXBlPSJyZXR1cm4gZGF0YSBmb3IgYWxsIHVzZXJzIj48L2Jsb2NrPjxibG9jayB0eXBlPSJkYXRhIGZvciBhbGwgdXNlcnMgaXMgcmV0dXJuZWQgdG8gdGhlIGF0dGFja2VyIj48L2Jsb2NrPiAgICAgICAgICAgICAgICAgICAgPC94bWw+ICAgICAgICAgICAgICAgIDwvc2VjdGlvbj4gICAgICAgICZzZW5kcmVxdWVzdCgiIik7JCgiKGh0dHA6Ly9iYW5rLmNvbT91c2VyaWQ9KSIpLnZhbCgiKDEyM29yMT0xKSIpY29udmVydHRvc3FsY29tbWFuZCgiIik7JCgiKHNlbGVjdGZyb211c2Vyc3doZXJldXNlcmlkPSkiKS52YWwoIigxMjNvcjE9MSkiKXJldHVybmRhdGFmb3JhbGx1c2VycygiIik7ZGF0YWZvcmFsbHVzZXJzaXNyZXR1cm5lZHRvdGhlYXR0YWNrZXIoIiIpOyYgICAgICAgICAgICBCbG9ja2x5LkJsb2Nrc1snc2VuZCByZXF1ZXN0J10gPSB7ICAgICAgICAgICAgICAgIGluaXQ6IGZ1bmN0aW9uICgpIHsgICAgICAgICAgICAgICAgdGhpcy5hcHBlbmRWYWx1ZUlucHV0KCJOQU1FIikgICAgICAgICAgICAgICAgICAgIC5zZXRDaGVjayhudWxsKSAgICAgICAgICAgICAgICAgICAgLmFwcGVuZEZpZWxkKCJzZW5kIHJlcXVlc3QiKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRQcmV2aW91c1N0YXRlbWVudCh0cnVlLCBudWxsKTsgICAgICAgICAgICAgICAgdGhpcy5zZXROZXh0U3RhdGVtZW50KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldENvbG91cigyMzApOyAgICAgICAgICAgICAgICB0aGlzLnNldFRvb2x0aXAoIiIpOyAgICAgICAgICAgICAgICB0aGlzLnNldEhlbHBVcmwoIiIpOyAgICAgICAgICAgIH0gICAgICAgIH07ICAgICAgICBCbG9ja2x5LkphdmFTY3JpcHRbJ3NlbmQgcmVxdWVzdCddID0gZnVuY3Rpb24gKGJsb2NrKSB7ICAgICAgICAgICAgdmFyIHZhbHVlX25hbWUgPSBCbG9ja2x5LkphdmFTY3JpcHQudmFsdWVUb0NvZGUoYmxvY2ssICdOQU1FJywgQmxvY2tseS5KYXZhU2NyaXB0Lk9SREVSX0FUT01JQyk7ICAgICAgICAgICAgICAgICAgICAgICAgdmFyIGNvZGUgPSAnc2VuZCByZXF1ZXN0KCInICsgdmFsdWVfbmFtZSArICciKTtcbic7ICAgICAgICAgICAgcmV0dXJuIGNvZGU7ICAgICAgICB9OyAgICAgICAgICAgICAgICAgICAgICAgIEJsb2NrbHkuQmxvY2tzWydodHRwOi8vYmFuay5jb20/dXNlcmlkPSddID0geyAgICAgICAgICAgIGluaXQ6IGZ1bmN0aW9uICgpIHsgICAgICAgICAgICAgICAgdGhpcy5hcHBlbmREdW1teUlucHV0KCkgICAgICAgICAgICAgICAgICAgIC5hcHBlbmRGaWVsZCgiaHR0cDovL2JhbmsuY29tP3VzZXJpZD0iKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRPdXRwdXQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDE2MCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsnaHR0cDovL2JhbmsuY29tP3VzZXJpZD0nXSA9IGZ1bmN0aW9uIChibG9jaykgeyAgICAgICAgICAgIHZhciBjb2RlID0gJ2h0dHA6Ly9iYW5rLmNvbT91c2VyaWQ9JzsgICAgICAgICAgICByZXR1cm4gW2NvZGUsIEJsb2NrbHkuSmF2YVNjcmlwdC5PUkRFUl9OT05FXTsgICAgICAgICAgICAgICAgICAgIH07ICAgICAgICAgICAgICAgICAgICAgICAgQmxvY2tseS5CbG9ja3NbJzEyMyBvciAxPTEnXSA9IHsgICAgICAgICAgICBpbml0OiBmdW5jdGlvbiAoKSB7ICAgICAgICAgICAgICAgIHRoaXMuYXBwZW5kRHVtbXlJbnB1dCgpICAgICAgICAgICAgICAgICAgICAuYXBwZW5kRmllbGQoIjEyMyBvciAxPTEiKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRPdXRwdXQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDE2MCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsnMTIzIG9yIDE9MSddID0gZnVuY3Rpb24gKGJsb2NrKSB7ICAgICAgICAgICAgdmFyIGNvZGUgPSAnMTIzIG9yIDE9MSc7ICAgICAgICAgICAgcmV0dXJuIFtjb2RlLCBCbG9ja2x5LkphdmFTY3JpcHQuT1JERVJfTk9ORV07ICAgICAgICAgICAgICAgICAgICB9OyAgICAgICAgICAgICAgICAgICAgICAgIEJsb2NrbHkuQmxvY2tzWydjb252ZXJ0IHRvIHNxbCBjb21tYW5kJ10gPSB7ICAgICAgICAgICAgICAgIGluaXQ6IGZ1bmN0aW9uICgpIHsgICAgICAgICAgICAgICAgdGhpcy5hcHBlbmRWYWx1ZUlucHV0KCJOQU1FIikgICAgICAgICAgICAgICAgICAgIC5zZXRDaGVjayhudWxsKSAgICAgICAgICAgICAgICAgICAgLmFwcGVuZEZpZWxkKCJjb252ZXJ0IHRvIHNxbCBjb21tYW5kIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0UHJldmlvdXNTdGF0ZW1lbnQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0TmV4dFN0YXRlbWVudCh0cnVlLCBudWxsKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRDb2xvdXIoMjMwKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRUb29sdGlwKCIiKTsgICAgICAgICAgICAgICAgdGhpcy5zZXRIZWxwVXJsKCIiKTsgICAgICAgICAgICB9ICAgICAgICB9OyAgICAgICAgQmxvY2tseS5KYXZhU2NyaXB0Wydjb252ZXJ0IHRvIHNxbCBjb21tYW5kJ10gPSBmdW5jdGlvbiAoYmxvY2spIHsgICAgICAgICAgICB2YXIgdmFsdWVfbmFtZSA9IEJsb2NrbHkuSmF2YVNjcmlwdC52YWx1ZVRvQ29kZShibG9jaywgJ05BTUUnLCBCbG9ja2x5LkphdmFTY3JpcHQuT1JERVJfQVRPTUlDKTsgICAgICAgICAgICAgICAgICAgICAgICB2YXIgY29kZSA9ICdjb252ZXJ0IHRvIHNxbCBjb21tYW5kKCInICsgdmFsdWVfbmFtZSArICciKTtcbic7ICAgICAgICAgICAgcmV0dXJuIGNvZGU7ICAgICAgICB9OyAgICAgICAgICAgICAgICAgICAgICAgIEJsb2NrbHkuQmxvY2tzWydzZWxlY3QgZnJvbSB1c2VycyB3aGVyZSB1c2VyaWQ9J10gPSB7ICAgICAgICAgICAgaW5pdDogZnVuY3Rpb24gKCkgeyAgICAgICAgICAgICAgICB0aGlzLmFwcGVuZER1bW15SW5wdXQoKSAgICAgICAgICAgICAgICAgICAgLmFwcGVuZEZpZWxkKCJzZWxlY3QgZnJvbSB1c2VycyB3aGVyZSB1c2VyaWQ9Iik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0T3V0cHV0KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldENvbG91cigxNjApOyAgICAgICAgICAgICAgICB0aGlzLnNldFRvb2x0aXAoIiIpOyAgICAgICAgICAgICAgICB0aGlzLnNldEhlbHBVcmwoIiIpOyAgICAgICAgICAgIH0gICAgICAgIH07ICAgICAgICBCbG9ja2x5LkphdmFTY3JpcHRbJ3NlbGVjdCBmcm9tIHVzZXJzIHdoZXJlIHVzZXJpZD0nXSA9IGZ1bmN0aW9uIChibG9jaykgeyAgICAgICAgICAgIHZhciBjb2RlID0gJ3NlbGVjdCBmcm9tIHVzZXJzIHdoZXJlIHVzZXJpZD0nOyAgICAgICAgICAgIHJldHVybiBbY29kZSwgQmxvY2tseS5KYXZhU2NyaXB0Lk9SREVSX05PTkVdOyAgICAgICAgICAgICAgICAgICAgfTsgICAgICAgICAgICAgICAgICAgICAgICBCbG9ja2x5LkJsb2Nrc1sncmV0dXJuIGRhdGEgZm9yIGFsbCB1c2VycyddID0geyAgICAgICAgICAgICAgICBpbml0OiBmdW5jdGlvbiAoKSB7ICAgICAgICAgICAgICAgIHRoaXMuYXBwZW5kVmFsdWVJbnB1dCgiTkFNRSIpICAgICAgICAgICAgICAgICAgICAuc2V0Q2hlY2sobnVsbCkgICAgICAgICAgICAgICAgICAgIC5hcHBlbmRGaWVsZCgicmV0dXJuIGRhdGEgZm9yIGFsbCB1c2VycyIpOyAgICAgICAgICAgICAgICB0aGlzLnNldFByZXZpb3VzU3RhdGVtZW50KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldE5leHRTdGF0ZW1lbnQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDIzMCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsncmV0dXJuIGRhdGEgZm9yIGFsbCB1c2VycyddID0gZnVuY3Rpb24gKGJsb2NrKSB7ICAgICAgICAgICAgdmFyIHZhbHVlX25hbWUgPSBCbG9ja2x5LkphdmFTY3JpcHQudmFsdWVUb0NvZGUoYmxvY2ssICdOQU1FJywgQmxvY2tseS5KYXZhU2NyaXB0Lk9SREVSX0FUT01JQyk7ICAgICAgICAgICAgICAgICAgICAgICAgdmFyIGNvZGUgPSAncmV0dXJuIGRhdGEgZm9yIGFsbCB1c2VycygiJyArIHZhbHVlX25hbWUgKyAnIik7XG4nOyAgICAgICAgICAgIHJldHVybiBjb2RlOyAgICAgICAgfTsgICAgICAgICAgICAgICAgICAgICAgICBCbG9ja2x5LkJsb2Nrc1snZGF0YSBmb3IgYWxsIHVzZXJzIGlzIHJldHVybmVkIHRvIHRoZSBhdHRhY2tlciddID0geyAgICAgICAgICAgICAgICBpbml0OiBmdW5jdGlvbiAoKSB7ICAgICAgICAgICAgICAgIHRoaXMuYXBwZW5kVmFsdWVJbnB1dCgiTkFNRSIpICAgICAgICAgICAgICAgICAgICAuc2V0Q2hlY2sobnVsbCkgICAgICAgICAgICAgICAgICAgIC5hcHBlbmRGaWVsZCgiZGF0YSBmb3IgYWxsIHVzZXJzIGlzIHJldHVybmVkIHRvIHRoZSBhdHRhY2tlciIpOyAgICAgICAgICAgICAgICB0aGlzLnNldFByZXZpb3VzU3RhdGVtZW50KHRydWUsIG51bGwpOyAgICAgICAgICAgICAgICB0aGlzLnNldE5leHRTdGF0ZW1lbnQodHJ1ZSwgbnVsbCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0Q29sb3VyKDIzMCk7ICAgICAgICAgICAgICAgIHRoaXMuc2V0VG9vbHRpcCgiIik7ICAgICAgICAgICAgICAgIHRoaXMuc2V0SGVscFVybCgiIik7ICAgICAgICAgICAgfSAgICAgICAgfTsgICAgICAgIEJsb2NrbHkuSmF2YVNjcmlwdFsnZGF0YSBmb3IgYWxsIHVzZXJzIGlzIHJldHVybmVkIHRvIHRoZSBhdHRhY2tlciddID0gZnVuY3Rpb24gKGJsb2NrKSB7ICAgICAgICAgICAgdmFyIHZhbHVlX25hbWUgPSBCbG9ja2x5LkphdmFTY3JpcHQudmFsdWVUb0NvZGUoYmxvY2ssICdOQU1FJywgQmxvY2tseS5KYXZhU2NyaXB0Lk9SREVSX0FUT01JQyk7ICAgICAgICAgICAgICAgICAgICAgICAgdmFyIGNvZGUgPSAnZGF0YSBmb3IgYWxsIHVzZXJzIGlzIHJldHVybmVkIHRvIHRoZSBhdHRhY2tlcigiJyArIHZhbHVlX25hbWUgKyAnIik7XG4nOyAgICAgICAgICAgIHJldHVybiBjb2RlOyAgICAgICAgfTsgICAgICAgICAgICA=";
+        generate();
+        function generate() {
+            // stuff you want to do every second
+            xmlSourceCode = atob(seed);
+            var xmlList = xmlSourceCode.split('&');
+            $("#tutorialName").html(decodeURIComponent(xmlList[0]));
+            $("#tutorialContent").html(decodeURIComponent(xmlList[1]));
+            $("#tutorialTask").html(decodeURIComponent(xmlList[2]));
+            $("#hints").html(xmlList[3]);
+            $("#blockWorkspace").html(xmlList[4]);
+            console.log(xmlList[5]);
+            eval(xmlList[6]);
+
+            var xmlSourceCode = "";
+            var options = {
+                toolbox: toolbox,
+                collapse: false,
+                comments: false,
+                disable: false,
+                maxBlocks: Infinity,
+                trashcan: false,
+                horizontalLayout: true,
+                toolboxPosition: 'start',
+                css: true,
+                media: 'https://blockly-demo.appspot.com/static/media/',
+                rtl: false,
+                scrollbars: false,
+                sounds: true,
+                oneBasedIndex: true,
+                zoom: {
+                    controls: false,
+                    wheel: false,
+                    startScale: 0.7,
+                    maxScale: 3,
+                    minScale: 0.3,
+                    scaleSpeed: 1.2
+                }
+            };
+            var workspace = Blockly.inject('blocklyDiv', options);
+
+            function sleep(delay) {
+                var start = new Date().getTime();
+                while (new Date().getTime() < start + delay);
+            }
+            function myUpdateFunction(event) {
+                var code = Blockly.JavaScript.workspaceToCode(workspace);
+                document.getElementById('textarea').value = code;
+                var targetStr = xmlList[5];
+                if (document.getElementById('textarea').value.replace(/(\r\n|\n|\r)/gm, "").replace(/ /g, '').includes(targetStr)) {
+                    $("#alertButton").click();
+                }
+            }
+            workspace.addChangeListener(myUpdateFunction);
+        }
+    </script>
+    <script>
+
+        $(function () {
+            setInterval(detectTextArea, 1000);
+        });
+        function found(lookupValue, testString) {
+            return testString.indexOf(lookupValue) !== -1;
+        }
+
+        function detectTextArea() {
+            var code = document.getElementById('textarea').value;
+            var hintstr = "";
+            var flag = 0;
+
+            //var
+            var bot = false;
+            var http = false;
+
+            if (found("http://bank.com?userid=", code)) {
+                if (found("(123 or 1=1)", code)) {
+                    hintstr += "<b><span style=\"color:lightgreen\">• Correct! The SQL command is injected in the userid request</span></b><br>";
+                }
+                else {
+                    hintstr += "<b><span style=\"color:red\">• Try to inject SQL command to userid</span></b><br>";
+                }
+            } else {
+                hintstr += "<b><span style=\"color:red\">• Try to inject SQL command to userid</span></b><br>";
+            }
+
+            if (!found("convert to sql command", code)) {
+                hintstr += "<b><span style=\"color:red\">• The request is not converted to SQL command</span></b><br>";
+            } else {
+                hintstr += "<b><span style=\"color:lightgreen\">• Correct! The request is converted to SQL command</span></b><br>";
+            }
+
+            if (!found("return data for all users", code)) {
+                hintstr += "<b><span style=\"color:red\">• What data will be returned when the SQL command is executed?</span></b><br>";
+            } else {
+                hintstr += "<b><span style=\"color:lightgreen\">• Correct! Data for all users will be returned when the SQL command is executed</span></b><br>";
+                http = true;
+            }
+
+            if (!found("data for all users is returned to the attacker", code)) {
+                hintstr += "<b><span style=\"color:red\">• What data will be returned to the attacker?</span></b><br>";
+            } else {
+                hintstr += "<b><span style=\"color:lightgreen\">• Correct! Data for all users is returned to the attacker</span></b><br>";
+                bot = true;
+            }
+            $("#hint").html(hintstr);
+        }
+    </script>
+</body>

