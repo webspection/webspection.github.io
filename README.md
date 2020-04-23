@@ -1,6 +1,6 @@
 # webspection.github.io
 
-# Project Title
+# Webspection
 
 Webspection is my free and open-source cybersecurity learning platform. Our mission is to make web security visible so that individuals and organizations can make informed decisions. Its primary goals are to aid teachers and students to learn web application security in a classroom environment.
 
@@ -10,68 +10,30 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Firefox and NodeJS installed
-
 ```
-Give examples
+Firefox and NodeJS installed
 ```
 
 ### Installing
 
+```
 npm install
 node app.js
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
 ```
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+You can deploy this project to AWS using ElasticBean
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+* [NodeJS](https://nodejs.org/en/) - JavaScript runtime built on Chrome's V8 JavaScript engine
+* [Visual Studio Code](https://code.visualstudio.com/) - Code editor redefined and optimized for building and debugging modern web and cloud applications
+* [AWS](https://aws.amazon.com/) - Reliable, scalable, and inexpensive cloud computing services
 
 ## Authors
 
-* **Felix Wong** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Felix Wong** - *Initial work* - [Webspection](https://github.com/webspection)
 
 ## License
 
